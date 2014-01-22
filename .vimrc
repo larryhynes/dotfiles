@@ -12,23 +12,23 @@ filetype off
 
 " Bundles for Vundle
 " ======================================================================
-Bundle 'gregsexton/MatchTag'
-Bundle 'vim-scripts/TwitVim'
-Bundle 'mattn/emmet-vim'
-Bundle 'troydm/easybuffer.vim'
-Bundle 'junegunn/goyo.vim'
-Bundle 'bling/vim-airline'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'leshill/vim-json'
-Bundle 'groenewege/vim-less'
-Bundle 'terryma/vim-multiple-cursors'
+Bundle 'bling/vim-airline'
 Bundle 'goldfeld/vim-seek'
+Bundle 'gregsexton/MatchTag'
+Bundle 'groenewege/vim-less'
+Bundle 'junegunn/goyo.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'leshill/vim-json'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'mattn/emmet-vim'
+Bundle 'rking/ag.vim'
+Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-vinegar'
+Bundle 'troydm/easybuffer.vim'
+Bundle 'vim-scripts/TwitVim'
 Bundle 'vimwiki/vimwiki'
 Bundle 'yuratomo/w3m.vim'
-Bundle 'rking/ag.vim'
-Bundle 'Lokaltog/vim-easymotion'
 
 " Remap leader from / to ,
 " =======================================================================
