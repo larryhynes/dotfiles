@@ -1,0 +1,5 @@
+nnoremap ; :
+:set editor='bash -lc "mvim -f \$*" mvim '
+:nmap \q :nohlsearch<CR>
+let mapleader = ","
+:set gui=none
