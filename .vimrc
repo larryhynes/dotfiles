@@ -10,7 +10,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 filetype off
 
-" Bundles
+" Bundles for Vundle
 " ======================================================================
 Bundle 'gregsexton/MatchTag'
 Bundle 'vim-scripts/TwitVim'
@@ -105,6 +105,7 @@ nmap <leader>q :nohlsearch<CR>
 :nmap k gk
 
 " Map <leader>b to call Easy Buffer
+" https://github.com/troydm/easybuffer.vim
 " =======================================================================
 map <leader>b :EasyBuffer<CR>
 
@@ -204,16 +205,17 @@ command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
 noremap <silent> <leader>h :Entities 0<CR>
 noremap <silent> <leader>H :Entities 1<CR>
 
-"use docx2txt.pl to view the content of a .docx file directly.
+" use docx2txt.pl to view the content of a .docx file directly.
+" http://docx2txt.sourceforge.net/
 "=======================================================================
 autocmd BufReadPre *.docx set ro
 autocmd BufReadPost *.docx %!docx2txt.pl
 
-"Set no backups in /tmp files
-"=======================================================================
+" Set no backups in /tmp files
+" ======================================================================
 set backupskip=/tmp/*,/private/tmp/*
 
-"Set status line stuff
+"Set status line stuff and listchars
 "=======================================================================
 set ttyfast " enable smoother screen redraw
 set listchars=tab:▸\ ,eol:¬ " Use the same symbols as TextMate for tabstops and EOLs
@@ -232,6 +234,7 @@ endfunction
 command! ClearRegisters call ClearRegisters()
 
 " Settings for Taspaper-Vim
+" https://github.com/davidoc/taskpaper.vim
 " =======================================================================
 let g:task_paper_follow_move=0
 
@@ -243,11 +246,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-"Steve Losh 'save on losing focus'
+" Steve Losh 'save on losing focus'
 " =======================================================================
 au FocusLost * :wa
 
-"VimWiki, set path and use markdown
+" VimWiki, set path and use markdown
+" https://github.com/vimwiki/vimwiki
 " =======================================================================
 let g:vimwiki_list = [{'path': '~/Desktop/Dropbox/vimwiki/'}]
 let g:vimwiki_list = [{'path': '~/Desktop/Dropbox/vimwiki/',
@@ -255,6 +259,7 @@ let g:vimwiki_list = [{'path': '~/Desktop/Dropbox/vimwiki/',
 
 " a function to execute formd and return the cursor
 " to its original position within the buffer.
+" http://drbunsen.github.io/formd/
 "=========================================================================
 function! Formd(option)
 :let save_view = winsaveview()
@@ -296,4 +301,6 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " ========================================================================
 nmap <leader>tt :%s/\s\+$//<CR>
 
+" Use <leader>c to upload current file to cloudapp using cloudapp cli
+" https://github.com/cloudapp/cloudapp.rb
 nmap <leader>c :!cloudapp %<CR>
