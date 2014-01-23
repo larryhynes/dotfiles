@@ -22,6 +22,8 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'leshill/vim-json'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'mattn/emmet-vim'
+Bundle 'mattn/gist-vim'
+Bundle 'mattn/webapi-vim'
 Bundle 'rking/ag.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-vinegar'
@@ -303,4 +305,10 @@ nmap <leader>tt :%s/\s\+$//<CR>
 
 " Use <leader>c to upload current file to cloudapp using cloudapp cli
 " https://github.com/cloudapp/cloudapp.rb
+" ========================================================================
 nmap <leader>c :!cloudapp %<CR>
+
+" Clips results from :Gist to clipboard
+" https://github.com/mattn/gist-vim
+" ========================================================================
+let g:gist_clip_command = 'pbcopy'
