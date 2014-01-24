@@ -1,3 +1,6 @@
+# http://larryhynes.net/2013/11/simple-slate-configuration.html
+# Mostly taken from http://thume.ca/howto/2012/11/19/using-slate/
+
 # Configuration is split into the following directives:
 
 # config (for global configurations)
@@ -29,6 +32,5 @@ bind g:${hyper} ${righthalf}
 bind f:${hyper} ${full}
 bind c:${hyper} ${bottomleft}
 bind v:${hyper} ${bottomright}
-
 
 # source (to load configs from another file)
