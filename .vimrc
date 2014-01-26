@@ -25,9 +25,8 @@ Bundle 'mattn/emmet-vim'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'rking/ag.vim'
+Bundle 'Shougo/unite.vim'
 Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-vinegar'
-Bundle 'troydm/easybuffer.vim'
 Bundle 'vim-scripts/TwitVim'
 Bundle 'vimwiki/vimwiki'
 Bundle 'yuratomo/w3m.vim'
@@ -46,6 +45,24 @@ nnoremap ; :
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_enable_branch = 1
+
+" Settings for unite.vim
+" https://github.com/Shougo/unite.vim
+" mostly based on
+" http://www.codeography.com/2013/06/17/replacing-all-the-things-with-unite-vim.html
+" =======================================================================
+let g:unite_source_history_yank_enable = 1
+nnoremap <leader>f :<C-u>Unite -buffer-name=files -start-insert file<cr>
+nnoremap <leader>b :<C-u>Unite -buffer-name=buffer buffer<cr>
+nnoremap <leader>r :<C-u>Unite -buffer-name=mru file_mru<cr>
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
+
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+endfunction
 
 " Use the system clipboard by default
 " =======================================================================
@@ -105,11 +122,6 @@ nmap <leader>q :nohlsearch<CR>
 " =======================================================================
 :nmap j gj
 :nmap k gk
-
-" Map <leader>b to call Easy Buffer
-" https://github.com/troydm/easybuffer.vim
-" =======================================================================
-map <leader>b :EasyBuffer<CR>
 
 " Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
 " =======================================================================
