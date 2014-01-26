@@ -111,7 +111,7 @@ nmap <leader>q :nohlsearch<CR>
 " =======================================================================
 map <leader>b :EasyBuffer<CR>
 
-" Some stuff for tabs and buffers from http://amix.dk/vim/vimrc.html
+" Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
 " =======================================================================
 
 " Useful mappings for managing tabs
@@ -144,8 +144,8 @@ map <leader>pp :setlocal paste!<cr>
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
+" Allow buffer switching without saving
+set hidden
 
 " Enable wildmenu for auto completion
 " =======================================================================
