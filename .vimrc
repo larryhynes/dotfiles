@@ -23,7 +23,9 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'mattn/emmet-vim'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
+Bundle 'PProvost/vim-markdown-jekyll'
 Bundle 'Shougo/unite.vim'
+Bundle 'sjl/gundo.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'vim-scripts/TwitVim'
 Bundle 'vimwiki/vimwiki'
@@ -50,7 +52,7 @@ let g:airline_enable_branch = 1
 " http://www.codeography.com/2013/06/17/replacing-all-the-things-with-unite-vim.html
 " =============================================================================
 let g:unite_source_history_yank_enable = 1
-nnoremap <leader>f :<C-u>Unite -buffer-name=files -start-insert file<cr>
+nnoremap <leader>f :<C-u>Unite -buffer-name=files file<cr>
 nnoremap <leader>b :<C-u>Unite -buffer-name=buffer buffer<cr>
 nnoremap <leader>r :<C-u>Unite -buffer-name=mru file_mru<cr>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
@@ -328,3 +330,8 @@ map <leader>nn :e ~/Desktop/Dropbox/Vimwiki/notes/notes.txt<cr>
 " https://github.com/vim-scripts/TwitVim
 " =============================================================================
 let twitvim_force_ssl = 1
+
+" Settings for gundo
+" http://sjl.bitbucket.org/gundo.vim/
+" =============================================================================
+nnoremap <leader>g :GundoToggle<cr>
