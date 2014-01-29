@@ -120,8 +120,8 @@ nmap <leader>q :nohlsearch<CR>
 
 " Remap j and k to move through rows as opposed to lines or paragraphs.
 " =============================================================================
-:nmap j gj
-:nmap k gk
+nmap j gj
+nmap k gk
 
 " Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
 " =============================================================================
@@ -310,12 +310,12 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 " Use <leader>tr to remove all trailing whitespaces
 " =============================================================================
-nmap <leader>tr :%s/\s\+$//<CR>
+nnoremap <leader>tr :%s/\s\+$//<CR>
 
 " Use <leader>c to upload current file to cloudapp using cloudapp cli
 " https://github.com/cloudapp/cloudapp.rb
 " =============================================================================
-nmap <leader>c :!cloudapp %<CR>
+nnoremap <leader>c :!cloudapp %<CR>
 
 " Clips results from :Gist to clipboard
 " https://github.com/mattn/gist-vim
@@ -324,7 +324,7 @@ let g:gist_clip_command = 'pbcopy'
 
 " <leader>nn opens my note file
 " =============================================================================
-map <leader>nn :e ~/Desktop/Dropbox/Vimwiki/notes/notes.txt<cr>
+nnoremap <leader>nn :e ~/Desktop/Dropbox/Vimwiki/notes/notes.txt<cr>
 
 " Settings for twitvim
 " https://github.com/vim-scripts/TwitVim
@@ -335,3 +335,9 @@ let twitvim_force_ssl = 1
 " http://sjl.bitbucket.org/gundo.vim/
 " =============================================================================
 nnoremap <leader>g :GundoToggle<cr>
+
+" Call urlview on a file and list urls for launching in W3M
+" http://linuxcommand.org/man_pages/urlview1.html
+" http://w3m.sourceforge.net/
+" =============================================================================
+nnoremap <leader>u :!urlview %<cr>
