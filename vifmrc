@@ -77,8 +77,8 @@ set statusline="  %t%= %A %10u:%-7g %15s %20d  "
 set rulerformat="%=%2l-%S"
 
 " :mark mark /full/directory/path [filename]
-mark b ~/bin/
-mark h ~/
+" mark b ~/bin/
+" mark h ~/
 
 " :com[mand] command_name action
 " The following macros can be used in a command
@@ -96,8 +96,8 @@ command diff vim -d %f %F
 command zip zip -r %f.zip %f
 command tar tar -czf %f.tar.gz %f
 command run !! ./%f
-command make !!make
-command vgrep vim "+grep %a"
+" command make !!make
+" command vgrep vim "+grep %a"
 
 " The file type is for the default programs to be used with
 " a file extension.
@@ -111,7 +111,7 @@ command vgrep vim "+grep %a"
 filetype *.pdf open -a Preview.app
 
 " PostScript
-filextype *.ps,*.ps.gz gv %c %i &
+filextype *.ps,*.ps.gz open -a Preview.app
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a
@@ -136,7 +136,7 @@ filetype *.html,*.htm
         \ open -a Firefox.app
 
 " Object
-filetype *.o nm %f | less
+filetype *.o nm %f | w3m
 
 " Image
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
@@ -166,8 +166,7 @@ filetype *.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz
        \ tar -xf %f,
 
 " Mount .dmg archives
-filetype *.dmg
-       \ open,
+filetype *.dmg open
 
 " What should be saved automatically between vifm runs
 " Like in previous versions of vifm
@@ -185,7 +184,7 @@ nmap O :!mvim %f<cr>
 nnoremap ; :
 
 " Open file in the background using its default program
-nmap gb :file &<cr>l
+" nmap gb :file &<cr>l
 
 " Yank current directory path into the clipboard
 nmap yd :!echo %d | pbcopy<cr>
@@ -199,12 +198,12 @@ nmap cc cw<c-u>
 nmap A cw<c-w>
 
 " Opening console in current directory
-nmap ,t :!xterm &<cr>
+" nmap ,t !xterm &<cr>
 
 " Opening vim to edit .vifmrc
-nmap ,c :execute ':!vim $MYVIFMRC' | restart<cr>
+" nmap ,c :execute ':!vim $MYVIFMRC' | restart<cr>
 " Opening gvim to edit .vifmrc
-nmap ,C :!gvim --remote-tab-silent $MYVIFMRC &<cr>
+" nmap ,C :!gvim --remote-tab-silent $MYVIFMRC &<cr>
 
 " Toggle wrap setting on ,w key
 nmap ,w :set wrap!<cr>
@@ -219,3 +218,6 @@ nmap <f8> :delete<cr>
 
 " ,f opens history
 nmap ,f :history<cr>
+
+" upload with cloudapp
+nmap ,c :!cloudapp %f<cr>

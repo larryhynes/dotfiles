@@ -150,8 +150,11 @@ set viminfo^=%
 " Autowrite buffers before switching
 set autowriteall
 
-" Toggle paste mode on and off
+" Toggle paste mode
 map <leader>pp :setlocal paste!<cr>
+
+" Always exit paste mode when leaving insert mode
+au InsertLeave * set nopaste
 
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
