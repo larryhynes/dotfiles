@@ -61,6 +61,11 @@ Maid.rules do
         move(dir('~/Desktop/file/*artwork*'), '~/Desktop/folders/Artwork')
     end
 
+### File letters to Documents folder
+    rule 'Letters to Documents folder' do
+        move(dir('~/Desktop/file/*letter*'), '~/Documents')
+    end
+
 ### Move .PDF files from Downloads to Documents
   rule 'PDF files in Downloads' do
     move(dir('~/Downloads/*.pdf'), '~/Documents')

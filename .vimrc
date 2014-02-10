@@ -27,6 +27,7 @@ Bundle 'PProvost/vim-markdown-jekyll'
 Bundle 'Shougo/unite.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'tpope/vim-markdown'
 Bundle 'vim-scripts/TwitVim'
 Bundle 'vimwiki/vimwiki'
 Bundle 'yuratomo/w3m.vim'
@@ -344,3 +345,7 @@ nnoremap <leader>g :GundoToggle<cr>
 " http://w3m.sourceforge.net/
 " =============================================================================
 nnoremap <leader>u :!urlview %<cr>
+
+" Highlight lines containing @today in .taskpaper files
+" =============================================================================
+autocmd BufRead,BufNewFile *.taskpaper match Todo /.*@today.*/
