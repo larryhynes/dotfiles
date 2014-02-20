@@ -162,7 +162,7 @@ bind editor \ca complete
 source /Users/larry/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 
 # Mailing Lists #########################################################################
-subscribe discuss@lists.growstuff.org members@gbsc.ie tarsnap-announce@tarsnap.com mailinglist@penkiln-burn.com
+subscribe discuss@lists.growstuff.org members@gbsc.ie tarsnap-announce@tarsnap.com mailinglist@penkiln-burn.com walking@lists.larryhynes.net
 
 # Caleb's flow tip ######################################################################
 # http://wcm1.web.rice.edu/mutt-tips.html

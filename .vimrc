@@ -1,3 +1,6 @@
+set nocompatible
+filetype off
+
 " Set utf-8 encoding
 " =============================================================================
 set encoding=utf-8
@@ -8,12 +11,12 @@ set encoding=utf-8
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
-filetype off
 
 " Bundles for Vundle
 " =============================================================================
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
+Bundle 'davidoc/taskpaper.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'groenewege/vim-less'
 Bundle 'junegunn/goyo.vim'
@@ -72,7 +75,6 @@ set clipboard=unnamed
 " basic settings, mostly from Steve Losh
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 " =============================================================================
-set nocompatible
 syntax enable
 set background=dark
 colorscheme solarized
@@ -82,7 +84,7 @@ set ruler
 set laststatus=2
 set number
 set relativenumber
-set t_co=256
+set t_Co=256
 set guifont=Source\ Code\ Pro:h13
 set wrap
 set textwidth=0
