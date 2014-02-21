@@ -330,7 +330,7 @@ let g:gist_clip_command = 'pbcopy'
 
 " <leader>nn opens my note file
 " =============================================================================
-nnoremap <leader>nn :e ~/Vimwiki/notes/notes.txt<cr>
+nnoremap <leader>nn :e ~/vimwiki/notes/notes.txt<cr>
 
 " Settings for twitvim
 " https://github.com/vim-scripts/TwitVim
