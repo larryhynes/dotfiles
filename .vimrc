@@ -273,8 +273,8 @@ au FocusLost * :wa
 " VimWiki, set path and use markdown
 " https://github.com/vimwiki/vimwiki
 " =============================================================================
-let g:vimwiki_list = [{'path': '~/Desktop/Dropbox/vimwiki/'}]
-let g:vimwiki_list = [{'path': '~/Desktop/Dropbox/vimwiki/',
+let g:vimwiki_list = [{'path': '~/vimwiki/'}]
+let g:vimwiki_list = [{'path': '~/vimwiki/',
                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " A function to execute formd and return the cursor to its original position within the buffer.
