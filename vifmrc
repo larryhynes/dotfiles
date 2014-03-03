@@ -184,7 +184,7 @@ nmap O :!mvim %f<cr>
 nnoremap ; :
 
 " Open file in the background using its default program
-" nmap gb :file &<cr>l
+nmap gb :file &<cr>l
 
 " Yank current directory path into the clipboard
 nmap yd :!echo %d | pbcopy<cr>
