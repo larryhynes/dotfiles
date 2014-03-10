@@ -16,6 +16,7 @@ Bundle 'gmarik/vundle'
 " =============================================================================
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
+Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'davidoc/taskpaper.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'groenewege/vim-less'
