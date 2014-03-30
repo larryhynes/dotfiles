@@ -165,6 +165,10 @@ fileviewer *.zip,*.jar,*.war,*.ear zip -sf %c
 filetype *.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz
        \ tar -xf %f,
 
+" Extract .bz2 archives
+filetype *.bz2
+        \ bzip2 -d %f,
+
 " Mount .dmg archives
 filetype *.dmg open
 
