@@ -153,6 +153,7 @@ set editor="vim +':set textwidth=0' +':set wrapmargin=0' +':set wrap'"
 #########################################################################################
 # set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 set query_command="mu cfind --format=mutt-ab '%s'"
+# set query_command="lbdbq %s"
 bind editor <Tab> complete-query
 bind editor \ca complete
 
