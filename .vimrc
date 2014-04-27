@@ -77,6 +77,7 @@ set clipboard=unnamed
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 " =============================================================================
 syntax enable
+syntax on
 set background=dark
 colorscheme solarized
 set backspace=2
