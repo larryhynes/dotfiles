@@ -211,4 +211,5 @@ macro index S "<shell-escape>mu find --clearlinks --format=links --linksdir=/Use
 
 # add todo to todo.taskpaper ############################################################
 # http://larryhynes.net/2013/11/mutt-to-taskpaper.html
-macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
+#macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
+macro index,pager \Ct "<pipe-message>~/mutt_to_task.sh<enter>"
