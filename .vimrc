@@ -94,7 +94,7 @@ set textwidth=0
 set wrapmargin=0
 set linebreak
 set nolist
-set showmode
+set noshowmode
 set showcmd
 
 " Indentation settings
@@ -102,7 +102,7 @@ set showcmd
 set tabstop=4 "Sets display width of tabs
 set shiftwidth=4 "Sets indentation width
 set autoindent "Turns on auto-indenting
-filetype plugin indent on
+filetype plugin indent on "Allows specific filetypes to manage indents
 
 " Expand tabs to spaces
 " =============================================================================
@@ -190,10 +190,6 @@ set undofile
 set undodir=~/.vim/undo
 set undolevels=1000
 set undoreload=10000
-
-"Turn on plugin & indentation support for specific filetypes
-" =============================================================================
-filetype plugin indent on
 
 "Remap emmet (zen) autocomplete
 " =============================================================================
