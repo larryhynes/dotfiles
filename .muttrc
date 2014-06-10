@@ -121,9 +121,9 @@ macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
 # Sidebar Navigation ####################################################################
-bind index,pager J   sidebar-next
-bind index,pager K     sidebar-prev
-bind index,pager L  sidebar-open
+bind index,pager J sidebar-next
+bind index,pager K sidebar-prev
+bind index,pager L sidebar-open
 
 # Pager View Options ####################################################################
 set pager_index_lines = 10 # number of index lines to show
@@ -163,6 +163,11 @@ bind editor \ca complete
 
 # search with notmuchmail ###############################################################
 #macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py /Users/larry/.mail/temporary/search<enter>" "search mail (using notmuch)"
+
+# use mu for search  ####################################################################
+# http://www.djcbsoftware.nl/code/mu/
+macro index S "<shell-escape>mu find --clearlinks --format=links --linksdir=/Users/larry/.mail/search " \
+"mu find"
 
 # set colours ###########################################################################
 source /Users/larry/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
@@ -208,12 +213,7 @@ set print_split
 # http://wcm1.web.rice.edu/mutt-tips.html
 set display_filter="~/mutt_filter_alias.sh"
 
-# use mu for search  ####################################################################
-# http://www.djcbsoftware.nl/code/mu/
-macro index S "<shell-escape>mu find --clearlinks --format=links --linksdir=/Users/larry/.mail/search " \
-"mu find"
-
-# add todo to todo.taskpaper ############################################################
+# add todo to taskwarrior ###############################################################
 # http://larryhynes.net/2013/11/mutt-to-taskpaper.html
 #macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
 macro index,pager \Ct "<pipe-message>~/mutt_to_task.sh<enter>"
