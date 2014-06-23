@@ -213,7 +213,7 @@ set print_split
 # http://wcm1.web.rice.edu/mutt-tips.html
 set display_filter="~/mutt_filter_alias.sh"
 
-# add todo to taskwarrior ###############################################################
+# add mail as a todo item ###############################################################
 # http://larryhynes.net/2013/11/mutt-to-taskpaper.html
-#macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
-macro index,pager \Ct "<pipe-message>~/mutt_to_task.sh<enter>"
+macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
+# macro index,pager \Ct "<pipe-message>~/mutt_to_task.sh<enter>"

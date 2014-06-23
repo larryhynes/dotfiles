@@ -339,12 +339,11 @@ let twitvim_force_ssl = 1
 " =============================================================================
 nnoremap <leader>g :GundoToggle<cr>
 
-" Call urlview on a file and list urls for launching in W3M
+" Call urlview on a file and list urls for launching in browser
 " http://linuxcommand.org/man_pages/urlview1.html
-" http://w3m.sourceforge.net/
 " =============================================================================
 nnoremap <leader>u :!urlview %<cr>
 
 " Highlight lines containing @today in .taskpaper files
 " =============================================================================
-autocmd BufRead,BufNewFile *.taskpaper match Todo /.*@today.*/
+" autocmd BufRead,BufNewFile *.taskpaper match Todo /.*@today.*/
