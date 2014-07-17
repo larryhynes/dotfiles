@@ -111,7 +111,7 @@ command run !! ./%f
 filetype *.pdf open -a Preview.app
 
 " PostScript
-filextype *.ps,*.ps.gz open -a Preview.app
+filetype *.ps,*.ps.gz open -a Preview.app
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a
@@ -122,7 +122,7 @@ filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a
 fileviewer *.mp3 mp3info
 
 " Video
-filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv
+filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv
         \ {View using vlc}
         \ open -a vlc.app,
 fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob
