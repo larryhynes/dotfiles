@@ -18,6 +18,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'davidoc/taskpaper.vim'
+Bundle 'dogrover/vim-pentadactyl'
 Bundle 'gregsexton/MatchTag'
 Bundle 'itspriddle/vim-marked'
 Bundle 'junegunn/goyo.vim'
@@ -237,6 +238,7 @@ set backupskip=/tmp/*,/private/tmp/*
 " =============================================================================
 set ttyfast " enable smoother screen redraw
 set listchars=tab:▸\ ,eol:¬ " Use the same symbols as TextMate for tabstops and EOLs
+set statusline+=%F
 
 " Clear Registers, using :ClearRegisters
 " =============================================================================

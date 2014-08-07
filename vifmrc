@@ -225,3 +225,7 @@ nmap ,f :history<cr>
 
 " upload with cloudapp
 nmap ,c :!cloudapp %f<cr>
+
+" Use numbering and relative numbering
+set number
+set relativenumber
