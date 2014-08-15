@@ -22,6 +22,7 @@ Bundle 'dogrover/vim-pentadactyl'
 Bundle 'gregsexton/MatchTag'
 Bundle 'itspriddle/vim-marked'
 Bundle 'junegunn/goyo.vim'
+Bundle 'ledger/vim-ledger'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'mattn/emmet-vim'
 Bundle 'mattn/gist-vim'
@@ -34,6 +35,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/TwitVim'
+Bundle 'vim-scripts/VOoM'
 Bundle 'vimwiki/vimwiki'
 Bundle 'yuratomo/w3m.vim'
 
@@ -257,8 +259,11 @@ command! ClearRegisters call ClearRegisters()
 " https://github.com/davidoc/taskpaper.vim
 " =============================================================================
 let g:task_paper_follow_move=0
-let g:task_paper_follow_archive=0
 let g:task_paper_styles={'overdue': 'ctermfg=37 guifg=#00afaf', 'today': 'ctermfg=166 guifg=#d75f00'}
+nnoremap <buffer> <silent> <Leader>tq
+    \    :<C-u>call taskpaper#add_tag('priority')<CR>
+nnoremap <buffer> <silent> <Leader>tQ
+    \    :<C-u>call taskpaper#delete_tag('priority', '')<CR>
 
 " SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      sRGB        HSB
 " --------- ------- ---- -------  ----------- ---------- ----------- -----------

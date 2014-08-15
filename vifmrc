@@ -96,7 +96,7 @@ command diff vim -d %f %F
 command zip zip -r %f.zip %f
 command tar tar -czf %f.tar.gz %f
 command run !! ./%f
-" command make !!make
+command make !!make
 " command vgrep vim "+grep %a"
 
 " The file type is for the default programs to be used with
