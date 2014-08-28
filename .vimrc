@@ -24,6 +24,7 @@ Bundle 'itspriddle/vim-marked'
 Bundle 'junegunn/goyo.vim'
 Bundle 'ledger/vim-ledger'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'mattn/calendar-vim'
 Bundle 'mattn/emmet-vim'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
@@ -226,11 +227,17 @@ command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
 noremap <silent> <leader>h :Entities 0<CR>
 noremap <silent> <leader>H :Entities 1<CR>
 
+" Don't use vim's zip plugin to browse files, which bothers .docx reading
+" http://vimdoc.sourceforge.net/htmldoc/pi_zip.html
+" =============================================================================
+let g:loaded_zipPlugin= 1
+let g:loaded_zip= 1
+
 " use docx2txt.pl to view the content of a .docx file directly.
 " http://docx2txt.sourceforge.net/
 " =============================================================================
 autocmd BufReadPre *.docx set ro
-autocmd BufReadPost *.docx %!docx2txt.pl
+autocmd BufRead *.docx %!docx2txt.pl
 
 " Set no backups in /tmp files
 " =============================================================================
