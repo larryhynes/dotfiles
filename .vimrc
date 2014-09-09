@@ -198,9 +198,10 @@ set undoreload=10000
 " =============================================================================
 let g:user_emmet_expandabbr_key='<C-e>'
 
-"Convert markdown to HTML
+"Convert markdown to HTML using Pandoc
+" http://johnmacfarlane.net/pandoc/index.html
 " =============================================================================
-nnoremap <leader>md :%!/usr/local/bin/Markdown.pl --html4tags <cr>
+nnoremap <leader>md :%!pandoc -f markdown -t html5 <cr>
 
 " Escape/unescape & < > HTML entities in range (default current line)
 " =============================================================================

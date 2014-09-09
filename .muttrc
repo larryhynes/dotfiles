@@ -34,7 +34,7 @@ mailboxes /Users/larry/.mail/larry/INBOX \
 # Other special folders ##############################################################
 set mbox      = "/Users/larry/.mail/larry/archive"
 set postponed = "/Users/larry/.mail/larry/drafts"
-set record=/Users/larry/.mail/larry/archive
+set record="/Users/larry/.mail/larry/archive"
 set mbox_type=Maildir
 
 # Paths ##############################################################################

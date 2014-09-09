@@ -63,7 +63,7 @@ Maid.rules do
 
 ### File letters to Documents folder
     rule 'Letters to Documents folder' do
-        move(dir('~/Desktop/file/*letter*'), '~/Documents')
+        move(dir('~/Desktop/file/*letter*'), '~/Documents/letters')
     end
 
 ### Move .PDF files from Downloads to Documents
