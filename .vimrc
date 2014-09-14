@@ -364,7 +364,7 @@ let g:gist_clip_command = 'pbcopy'
 
 " <leader>nn opens my note file
 " =============================================================================
-nnoremap <leader>nn :e ~/vimwiki/notes/notes.txt<cr>
+nnoremap <leader>nn :e ~/notes/tandy.txt<cr>
 
 " Settings for twitvim
 " https://github.com/vim-scripts/TwitVim
@@ -385,3 +385,8 @@ nnoremap <leader>u :!urlview "%"<cr>
 " http://usevim.com/2014/07/11/key-speed
 " =============================================================================
 set timeoutlen=2000 ttimeoutlen=0
+
+" Use paps to pretty print a pdf and open it in Preview.app
+" http://paps.sourceforge.net/
+" =============================================================================
+nnoremap <leader>p :!/usr/local/bin/paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 "%" \| /usr/bin/open -f -a Preview<cr>

@@ -32,8 +32,8 @@ mailboxes /Users/larry/.mail/larry/INBOX \
           /Users/larry/.mail/search \
 
 # Other special folders ##############################################################
-set mbox      = "/Users/larry/.mail/larry/archive"
-set postponed = "/Users/larry/.mail/larry/drafts"
+set mbox="/Users/larry/.mail/larry/archive"
+set postponed="/Users/larry/.mail/larry/drafts"
 set record="/Users/larry/.mail/larry/archive"
 
 # Paths ##############################################################################
@@ -61,8 +61,8 @@ set pipe_decode          # strip headers and eval mimes when piping
 set thorough_search      # strip headers and eval mimes before searching
 
 # Compose View Options -#################################################################
-set realname = "Larry Hynes"         # who am i?
-set use_envelope_from = yes          # which from?
+set realname="Larry Hynes"           # who am i?
+set use_envelope_from="yes"          # which from?
 set sig_dashes="no"                  # dashes before sig
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
@@ -94,7 +94,7 @@ hdr_order from: to: cc: date: subject:  # and in this order
 
 # Index View Options ####################################################################
 set date_format = "%d/%m"
-set index_format = "[%Z]  %D  %-20.20F  %s"
+set index_format = "%2N [%Z]  %D  %-20.20F  %s"
 set sort = threads                         # like gmail
 set sort_aux = reverse-last-date-received  # like gmail
 set uncollapse_jump                        # don't collapse on an unread message
@@ -209,16 +209,19 @@ set print="yes"
 set print_split
 
 # Use paps to pretty-print using <ctrl>p and open in Preview.app ########################
+# http://paps.sourceforge.net/
 macro index,pager \Cp "<pipe-entry> paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 | /usr/bin/open -f -a Preview<enter>"
 
 # Caleb's alias filter ##################################################################
 # http://wcm1.web.rice.edu/mutt-tips.html
 set display_filter="~/mutt_filter_alias.sh"
 
-# add mail as a todo item ###############################################################
+# add mail as a todo item in taskpaper ##################################################
 # http://larryhynes.net/2013/11/mutt-to-taskpaper.html
 macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
-# macro index,pager \Ct "<pipe-message>~/mutt_to_task.sh<enter>"
 
-# use http://www.memoryhole.net/~kyle/extract_url/ to manage urls to send to pinboard
+# use http://www.memoryhole.net/~kyle/extract_url/ to extract urls to send to pinboard ##
 macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/extract_url.pl<enter>" "get URLs"
+
+source ~/.mutt/scoring
+color index cyan default "~n>10"
