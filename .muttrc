@@ -35,14 +35,13 @@ mailboxes /Users/larry/.mail/larry/INBOX \
 set mbox      = "/Users/larry/.mail/larry/archive"
 set postponed = "/Users/larry/.mail/larry/drafts"
 set record="/Users/larry/.mail/larry/archive"
-set mbox_type=Maildir
 
 # Paths ##############################################################################
 set folder           = ~/.mail                 # mailbox location
 set alias_file       = ~/.mutt/aliases.txt           # where to store aliases
 source ~/.mutt/aliases.txt
 set header_cache     = ~/.mutt/cache/headers # where to store headers
-set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
+set message_cachedir = ~/.mutt/cache  # where to store bodies
 set mailcap_path     = ~/.mutt/mailcap         # entries for filetypes
 set tmpdir           = ~/.mutt/temp            # where to keep temp files
 set signature        = ~/.mutt/sig             # my signature file
@@ -63,7 +62,7 @@ set thorough_search      # strip headers and eval mimes before searching
 
 # Compose View Options -#################################################################
 set realname = "Larry Hynes"         # who am i?
-set envelope_from                    # which from?
+set use_envelope_from = yes          # which from?
 set sig_dashes="no"                  # dashes before sig
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
@@ -208,6 +207,9 @@ set sleep_time = 0
 set print_command="lp -o media=A4"
 set print="yes"
 set print_split
+
+# Use paps to pretty-print using <ctrl>p and open in Preview.app ########################
+macro index,pager \Cp "<pipe-entry> paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 | /usr/bin/open -f -a Preview<enter>"
 
 # Caleb's alias filter ##################################################################
 # http://wcm1.web.rice.edu/mutt-tips.html

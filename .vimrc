@@ -99,7 +99,7 @@ set linebreak
 set nolist
 set noshowmode
 set showcmd
-
+set visualbell
 " Indentation settings
 " =============================================================================
 set tabstop=4 "Sets display width of tabs
