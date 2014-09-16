@@ -1,7 +1,3 @@
-# Just trying to get over the 'illegal byte sequence' error msg #####################
-set config_charset=utf-8
-set locale='echo "${LC_ALL:-${LC_TIME:-${LANG}}}"'
-
 # Nearly everything here is from http://stevelosh.com/blog/2012/10/the-homely-mutt/
 # Account Settings ##################################################################
 set from=larry@larryhynes.com
@@ -32,15 +28,16 @@ mailboxes /Users/larry/.mail/larry/INBOX \
           /Users/larry/.mail/search \
 
 # Other special folders ##############################################################
-set mbox="/Users/larry/.mail/larry/archive"
-set postponed="/Users/larry/.mail/larry/drafts"
-set record="/Users/larry/.mail/larry/archive"
+set mbox="/Users/larry/.mail/larry/Archive"
+set postponed="/Users/larry/.mail/larry/Drafts"
+set record="/Users/larry/.mail/larry/Archive"
 
 # Paths ##############################################################################
 set folder           = ~/.mail                 # mailbox location
 set alias_file       = ~/.mutt/aliases.txt           # where to store aliases
 source ~/.mutt/aliases.txt
-set header_cache     = ~/.mutt/cache/headers # where to store headers
+set header_cache     = ~/.mutt/cache # where to store headers
+unset header_cache_compress
 set message_cachedir = ~/.mutt/cache  # where to store bodies
 set mailcap_path     = ~/.mutt/mailcap         # entries for filetypes
 set tmpdir           = ~/.mutt/temp            # where to keep temp files
@@ -62,8 +59,7 @@ set thorough_search      # strip headers and eval mimes before searching
 
 # Compose View Options -#################################################################
 set realname="Larry Hynes"           # who am i?
-set use_envelope_from="yes"          # which from?
-set sig_dashes="no"                  # dashes before sig
+set use_envelope_from                # which from?
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
 set askcc                            # ask for CC:
@@ -176,7 +172,7 @@ subscribe discuss@lists.growstuff.org members@gbsc.ie tarsnap-announce@tarsnap.c
 
 # Caleb's flow tip ######################################################################
 # http://wcm1.web.rice.edu/mutt-tips.html
-set text_flowed=yes
+set text_flowed
 
 # View HTML mail  #######################################################################
 auto_view text/html
@@ -205,7 +201,7 @@ set sleep_time = 0
 
 # Set print options #####################################################################
 set print_command="lp -o media=A4"
-set print="yes"
+set print="ask-yes"
 set print_split
 
 # Use paps to pretty-print using <ctrl>p and open in Preview.app ########################
@@ -223,5 +219,14 @@ macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
 # use http://www.memoryhole.net/~kyle/extract_url/ to extract urls to send to pinboard ##
 macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/extract_url.pl<enter>" "get URLs"
 
+# Set up scoring and highlight high-scored messages in the index ########################
 source ~/.mutt/scoring
 color index cyan default "~n>10"
+
+# Don't use the builtin pager, as a way around 'illegal byte sequence' errors ###########
+set pager=vim
+unset prompt_after
+
+# There may be some on-going changes here to try and mitigate 'illegal byte blah' #######
+set locale="en_IE.UTF-8"
+
