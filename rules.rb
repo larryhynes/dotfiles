@@ -38,32 +38,32 @@ Maid.rules do
 
 ### File invoices to invoice folder
   rule 'Invoices in File folder' do
-    move(dir('~/Desktop/file/*INVOICE*'), '~/Documents/invoices_2014')
+    move(dir('~/.mail/file/*INVOICE*'), '~/Documents/invoices_2014')
   end
 
 ### File estimates to estimate folder
   rule 'Estimates in Estimate folder' do
-      move(dir('~/Desktop/file/*Estimate*'), '~/Documents/Estimates')
+      move(dir('~/.mail/file/*Estimate*'), '~/Documents/Estimates')
     end
 
 ### File receipts to receipts folder
   rule 'Receipts in File folder' do
-    move(dir('~/Desktop/file/*receipt*'), '~/Documents/receipts_2014')
+    move(dir('~/.mail/file/*receipt*'), '~/Documents/receipts_2014')
   end
 
 ### File proofs to Proofs folder
     rule 'Proofs in Proofs folder' do
-      move(dir('~/Desktop/file/*proof*'), '~/Desktop/folders/Proofs')
+      move(dir('~/.mail/file/*proof*'), '~/.mail/folders/Proofs')
     end
 
 ### File artwork to Artwork folder
     rule 'Artwork to artwork folder' do
-        move(dir('~/Desktop/file/*artwork*'), '~/Desktop/folders/Artwork')
+        move(dir('~/.mail/file/*artwork*'), '~/.mail/folders/Artwork')
     end
 
 ### File letters to Documents folder
     rule 'Letters to Documents folder' do
-        move(dir('~/Desktop/file/*letter*'), '~/Documents/letters')
+        move(dir('~/.mail/file/*letter*'), '~/Documents/letters')
     end
 
 ### Move .PDF files from Downloads to Documents
@@ -83,7 +83,7 @@ Maid.rules do
 
 ### Move screenshots to trash
   rule 'Screenshots in File' do
-    move(dir('~/Desktop/file/Screen*'), '~/.Trash')
+    move(dir('~/.mail/file/Screen*'), '~/.Trash')
   end
 
 ### Remove .deflate files from .w3m directory
