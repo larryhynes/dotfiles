@@ -53,12 +53,12 @@ Maid.rules do
 
 ### File proofs to Proofs folder
     rule 'Proofs in Proofs folder' do
-      move(dir('~/.mail/file/*proof*'), '~/.mail/folders/Proofs')
+      move(dir('~/.mail/file/*proof*'), '~/Desktop/folders/Proofs')
     end
 
 ### File artwork to Artwork folder
     rule 'Artwork to artwork folder' do
-        move(dir('~/.mail/file/*artwork*'), '~/.mail/folders/Artwork')
+        move(dir('~/.mail/file/*artwork*'), '~/Desktop/folders/Artwork')
     end
 
 ### File letters to Documents folder

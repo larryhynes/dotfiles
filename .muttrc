@@ -1,21 +1,20 @@
-# Nearly everything here is from http://stevelosh.com/blog/2012/10/the-homely-mutt/
-# Account Settings ##################################################################
+# A lot of the stuff here is from http://stevelosh.com/blog/2012/10/the-homely-mutt/
+
+# Account Settings
 set from="larry@larryhynes.com"
 set hostname="larryhynes.com"
 set sendmail = "/usr/local/bin/msmtp -a larry"
 set sendmail_wait = 0
-unset record
-
 my_hdr Reply-To: larry@larryhynes.com
-my_hdr X-PGP-Key: http://larryhynes.com/larry_hynes_pubkey.asc
+my_hdr X-PGP-Key: https://larryhynes.com/larry_hynes_pubkey.asc
 
-# Default inbox ######################################################################
+# Default inbox
 set spoolfile = "/Users/larry/.mail/larry/INBOX"
 
-# Alternate email addresses.##########################################################
+# Alternate email addresses
 alternates (hello|lh)@larryhynes.com
 
-# Mailboxes to show in the sidebar ###################################################
+# Mailboxes to show in the sidebar
 mailboxes /Users/larry/.mail/larry/INBOX \
           /Users/larry/.mail/larry/Archive \
           /Users/larry/.mail/larry/2013 \
@@ -27,23 +26,21 @@ mailboxes /Users/larry/.mail/larry/INBOX \
           /Users/larry/.mail/larry/Trash \
           /Users/larry/.mail/search \
 
-# Other special folders ##############################################################
+# Other special folders
 set mbox="/Users/larry/.mail/larry/Archive"
 set postponed="/Users/larry/.mail/larry/Drafts"
 set record="/Users/larry/.mail/larry/Archive"
 
-# Paths ##############################################################################
-set folder           = ~/.mail                 # mailbox location
-# set alias_file       = ~/.mutt/aliases.txt           # where to store aliases
-# source ~/.mutt/aliases.txt
-set header_cache     = ~/.mutt/cache # where to store headers
+# Paths
+set folder = ~/.mail                 # mailbox location
+set header_cache = ~/.mutt/cache # where to store headers
 unset header_cache_compress
 set message_cachedir = ~/.mutt/cache  # where to store bodies
-set mailcap_path     = ~/.mutt/mailcap         # entries for filetypes
-set tmpdir           = ~/.mutt/temp            # where to keep temp files
-set signature        = ~/.mutt/sig             # my signature file
+set mailcap_path = ~/.mutt/mailcap         # entries for filetypes
+set tmpdir = ~/.mutt/temp            # where to keep temp files
+set signature = ~/.mutt/sig             # my signature file
 
-# Basic Options ######################################################################
+# Basic Options
 set wait_key = no        # shut up, mutt
 set mbox_type = Maildir  # mailbox type
 set timeout = 3          # idle time before scanning
@@ -52,12 +49,11 @@ unset move               # gmail does that
 set delete               # don't ask, just do
 unset confirmappend      # don't ask, just do!
 set quit                 # don't ask, just do!!
-unset mark_old           # read/new is good enough for me
 set beep_new             # bell on new mails
 set pipe_decode          # strip headers and eval mimes when piping
 set thorough_search      # strip headers and eval mimes before searching
 
-# Compose View Options -#################################################################
+# Compose View Options
 set realname="Larry Hynes"           # who am i?
 set use_envelope_from                # which from?
 set edit_headers                     # show headers when composing
@@ -72,55 +68,62 @@ set reply_to                         # reply to Reply to: field
 set include                          # include message in replies
 set forward_quote                    # include message in forwards
 
-# Sidebar Patch #########################################################################
+# Use vim to compose email
+set editor="vim +':set textwidth=0' +':set wrapmargin=0' +':set wrap'"
+
+# Sidebar Patch
 set sidebar_delim   = '  '
 set sidebar_visible = yes
-set sidebar_width   = 24
+set sidebar_width   = 28
 
-# Status Bar ###########################################################################
+# Status Bar
 set status_chars  = " *%A"
-set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+set status_format = "───[ %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
 
-# Header Options -#######################################################################
+# Header Options
 ignore *                                # ignore all headers
 unignore from: to: cc: date: subject:   # show only these
 unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
 
-
-# Index View Options ####################################################################
-set date_format = "%d/%m"
-set index_format = "%2N [%Z]  %D  %-20.20F  %s"
+# Index View Options
+set date_format = "%d/%m %H:%M"
+set index_format = "%2N [%Z]  %D  %4c %2M | %-20.20L  |  %s"
 set sort = threads                         # like gmail
 set sort_aux = reverse-last-date-received  # like gmail
 set uncollapse_jump                        # don't collapse on an unread message
 set sort_re                                # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
-# Index Key Bindings ###################################################################
-bind index gg       first-entry
-bind index G        last-entry
-bind index R        group-reply
-bind index <tab>    sync-mailbox
-bind index <space>  collapse-thread
+# Macros
 
-# Ctrl-r to mark all as read ###########################################################
+# Ctrl-r to mark all as read
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
-# Sync email ###########################################################################
+# Sync email
 macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
 macro index o "<shell-escape>offlineimap -qf INBOX<enter>" "run offlineimap to sync inbox"
 
-# Saner copy/move dialogs ##############################################################
+# Saner copy/move dialogs
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 
-# Sidebar Navigation ####################################################################
-bind index,pager J sidebar-next
-bind index,pager K sidebar-prev
-bind index,pager L sidebar-open
+# Use urlview for links
+macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+# macro pager \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
 
-# Pager View Options ####################################################################
+# Use paps to pretty-print using <ctrl>p and open in Preview.app
+# http://paps.sourceforge.net/
+macro index,pager \Cp "<pipe-entry> sed 's/^!DSPAM.*//g' | paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 | /usr/bin/open -f -a Preview<enter>"
+
+# add mail as a todo item in taskpaper
+# http://larryhynes.net/2013/11/mutt-to-taskpaper.html
+macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
+
+# use http://www.memoryhole.net/~kyle/extract_url/ to extract urls to send to pinboard
+macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/extract_url.pl<enter>" "get URLs"
+
+# Pager View Options
 set pager_index_lines = 10 # number of index lines to show
 set pager_context = 3      # number of context lines to show
 set pager_stop             # don't go to next message automatically
@@ -130,89 +133,58 @@ unset markers              # no ugly plus signs
 
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 
+# Set file browser sort to reverse date i.e. newest first
+set sort_browser = reverse-date
+
+# Define an order for text/html
 alternative_order text/plain text/enriched text/html
 
-# Pager Key Bindings ####################################################################
-bind pager k  previous-line
-bind pager j  next-line
-bind pager gg top
-bind pager G  bottom
-bind pager R  group-reply
-
-# View attachments properly #############################################################
+# View attachments properly with mailcap
 bind attach <return> view-mailcap
 
-# Use urlview for links #################################################################
-macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
-# macro pager \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
-
-# Use vim to compose email ##############################################################
-set editor="vim +':set textwidth=0' +':set wrapmargin=0' +':set wrap'"
-
-#########################################################################################
-# set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
+# Address queries
+# Currently using mu http://www.djcbsoftware.nl/code/mu/
 set query_command="mu cfind --format=mutt-ab '%s'"
-# set query_command="lbdbq %s"
 bind editor <Tab> complete-query
-# bind editor \ca complete
+# set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 
-# search with notmuchmail ###############################################################
-#macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py /Users/larry/.mail/temporary/search<enter>" "search mail (using notmuch)"
-
-# use mu for search  ####################################################################
-# http://www.djcbsoftware.nl/code/mu/
-macro index S "<shell-escape>mu find --clearlinks --format=links --linksdir=/Users/larry/.mail/search " \
-"mu find"
-
-# set colours ###########################################################################
-source /Users/larry/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
-
-# Mailing Lists #########################################################################
-subscribe discuss@lists.growstuff.org members@gbsc.ie tarsnap-announce@tarsnap.com walking@lists.larryhynes.net mutt-announce@mutt.org
-
-# Caleb's flow tip ######################################################################
+# Caleb's flow tip
 # http://wcm1.web.rice.edu/mutt-tips.html
 set text_flowed
 
-# View HTML mail  #######################################################################
+# View HTML mail
 auto_view text/html
 
-# Speed up folders switch ###############################################################
+# Speed up folders switch
 set sleep_time = 0
 
-# Set print options #####################################################################
+# Set print options
 set print_command="lp -o media=A4"
 set print="ask-yes"
 set print_split
 
-# Use paps to pretty-print using <ctrl>p and open in Preview.app ########################
-# http://paps.sourceforge.net/
-macro index,pager \Cp "<pipe-entry> paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 | /usr/bin/open -f -a Preview<enter>"
-
-# Caleb's alias filter ##################################################################
-# http://wcm1.web.rice.edu/mutt-tips.html
-# set display_filter="~/mutt_filter_alias.sh"
-
-# add mail as a todo item in taskpaper ##################################################
-# http://larryhynes.net/2013/11/mutt-to-taskpaper.html
-macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
-
-# use http://www.memoryhole.net/~kyle/extract_url/ to extract urls to send to pinboard ##
-macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/extract_url.pl<enter>" "get URLs"
-
-# Set up scoring and highlight high-scored messages in the index ########################
+# Set up scoring and highlight high-scored messages in the index
 source ~/.mutt/scoring
-color index cyan default "~n>10"
-
-# Don't use the builtin pager, as a way around 'illegal byte sequence' errors ###########
-set pager=vim
-unset prompt_after
+color index blue default "~n>10"
 
 # There may be some on-going changes here to try and mitigate 'illegal byte blah' #######
 set locale="en_IE.UTF-8"
+# Don't use the builtin pager, as a way around 'illegal byte sequence' errors ###########
+# set pager=vim
+# unset prompt_after
 
-# Hooks #################################################################################
+# set colours
+# https://github.com/altercation/mutt-colors-solarized
+source /Users/larry/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+
+# Hooks
 source ~/.mutt/hooks
 
-# Source pgp settings ###################################################################
+# Source pgp settings
 source ~/.mutt/pgp
+
+# Set up some bindings
+source ~/.mutt/binds
+
+# Mailing lists
+source ~/.mutt/lists
