@@ -1,18 +1,17 @@
 # A lot of the stuff here is from http://stevelosh.com/blog/2012/10/the-homely-mutt/
 
 # Account Settings
+set realname="Larry Hynes"
 set from="larry@larryhynes.com"
 set hostname="larryhynes.com"
 set sendmail = "/usr/local/bin/msmtp -a larry"
 set sendmail_wait = 0
-my_hdr Reply-To: larry@larryhynes.com
-my_hdr X-PGP-Key: https://larryhynes.com/larry_hynes_pubkey.asc
-
-# Default inbox
-set spoolfile = "/Users/larry/.mail/larry/INBOX"
 
 # Alternate email addresses
 alternates (hello|lh)@larryhynes.com
+
+# Default inbox
+set spoolfile = "/Users/larry/.mail/larry/INBOX"
 
 # Mailboxes to show in the sidebar
 mailboxes /Users/larry/.mail/larry/INBOX \
@@ -60,8 +59,21 @@ set rfc2047_parameters
 set charset = "utf-8"
 set send_charset = "utf-8:iso-8859-1:iso-8859-2:us-ascii"
 
+# set colours
+# https://github.com/altercation/mutt-colors-solarized
+source /Users/larry/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
+
+# Index View Options
+set date_format = "%d/%m %H:%M"
+set index_format = "%2N [%Z]  %D  %4c %2M | %-20.20L  | %-3C | %s"
+set sort = threads                         # like gmail
+set sort_aux = reverse-last-date-received  # like gmail
+set uncollapse_jump                        # don't collapse on an unread message
+unset collapse_unread
+set sort_re                                # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
 # Compose View Options
-set realname="Larry Hynes"           # who am i?
 set use_envelope_from                # which from?
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
@@ -76,10 +88,14 @@ set include                          # include message in replies
 set forward_quote                    # include message in forwards
 set compose_format = ""
 
-# Use vim to compose email
-set editor="vim +':set textwidth=0' +':set wrapmargin=0' +':set wrap'"
+# Pager View Options
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+set menu_scroll            # scroll in menus
+unset markers              # no ugly plus signs
 
 # Sidebar Patch
+# http://www.lunar-linux.org/mutt-sidebar/
 set sidebar_delim   = '  '
 set sidebar_visible = yes
 set sidebar_width   = 28
@@ -93,16 +109,12 @@ ignore *                                # ignore all headers
 unignore from: to: cc: date: subject:   # show only these
 unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
+my_hdr Reply-To: larry@larryhynes.com
+my_hdr X-PGP-Key: https://larryhynes.com/larry_hynes_pubkey.asc
+my_hdr X-URL: https://larryhynes.com
 
-# Index View Options
-set date_format = "%d/%m %H:%M"
-set index_format = "%2N [%Z]  %D  %4c %2M | %-20.20L  | %-3C | %s"
-set sort = threads                         # like gmail
-set sort_aux = reverse-last-date-received  # like gmail
-set uncollapse_jump                        # don't collapse on an unread message
-unset collapse_unread
-set sort_re                                # thread based on regex
-set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+# Use vim to compose email
+set editor="vim +':set textwidth=0' +':set wrapmargin=0' +':set wrap'"
 
 # Macros
 
@@ -121,9 +133,19 @@ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 # macro pager \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
 
+# use mu for search
+# http://www.djcbsoftware.nl/code/mu/
+macro index S "<shell-escape>mu find --clearlinks --format=links --linksdir=/Users/larry/.mail/search " "mu find"
+
+# search with notmuchmail
+#macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py /Users/larry/.mail/temporary/search<enter>" "search mail (using notmuch)"
+
 # Use paps to pretty-print using <ctrl>p and open in Preview.app
 # http://paps.sourceforge.net/
 macro index,pager \Cp "<pipe-entry> sed 's/^!DSPAM.*//g' | paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 | /usr/bin/open -f -a Preview<enter>"
+
+# Use paps to pretty-print just the message in question, stripping out quoted material
+macro index,pager \ep "<pipe-entry> sed '/^>.*/,\$\d' | paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 | /usr/bin/open -f -a Preview<enter>"
 
 # add mail as a todo item in taskpaper
 # http://larryhynes.net/2013/11/mutt-to-taskpaper.html
@@ -131,13 +153,6 @@ macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
 
 # use http://www.memoryhole.net/~kyle/extract_url/ to extract urls to send to pinboard
 macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/extract_url.pl<enter>" "get URLs"
-
-# Pager View Options
-set pager_index_lines = 10 # number of index lines to show
-set pager_context = 3      # number of context lines to show
-set menu_scroll            # scroll in menus
-set tilde                  # show tildes like in vim
-unset markers              # no ugly plus signs
 
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 
@@ -172,15 +187,11 @@ set print_command="lp -o media=A4"
 set print="ask-yes"
 set print_split
 
-# There may be some on-going changes here to try and mitigate 'illegal byte blah' #######
+# There may be some on-going changes here to try and mitigate 'illegal byte blah'
 set locale="en_IE.UTF-8"
-# Don't use the builtin pager, as a way around 'illegal byte sequence' errors ###########
+# Don't use the builtin pager, as a way around 'illegal byte sequence' errors
 # set pager=vim
 # unset prompt_after
-
-# set colours
-# https://github.com/altercation/mutt-colors-solarized
-source /Users/larry/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 
 # Set up scoring and highlight high-scored messages in the index
 source ~/.mutt/scoring
