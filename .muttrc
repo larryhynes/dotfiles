@@ -5,7 +5,8 @@ set realname="Larry Hynes"
 set from="larry@larryhynes.com"
 set hostname="larryhynes.com"
 set sendmail = "/usr/local/bin/msmtp -a larry"
-set sendmail_wait = 0
+set sendmail_wait = 120
+set use_envelope_from
 
 # Alternate email addresses
 alternates (hello|lh)@larryhynes.com
@@ -74,7 +75,6 @@ set sort_re                                # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # Compose View Options
-set use_envelope_from                # which from?
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
 set askcc                            # ask for CC:
@@ -93,6 +93,7 @@ set pager_index_lines = 10 # number of index lines to show
 set pager_context = 3      # number of context lines to show
 set menu_scroll            # scroll in menus
 unset markers              # no ugly plus signs
+set pager_stop
 
 # Sidebar Patch
 # http://www.lunar-linux.org/mutt-sidebar/
@@ -157,7 +158,7 @@ macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/e
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 
 # Set file browser sort to reverse date i.e. newest first and set folder format for browser
-set sort_browser = reverse-date
+# set sort_browser = reverse-date
 set folder_format = "%2C %t %d %4s %f"
 
 # Define an order for text/html
