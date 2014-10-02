@@ -15,7 +15,6 @@ Bundle 'gmarik/vundle'
 " Bundles for Vundle
 " =============================================================================
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'davidoc/taskpaper.vim'
 Bundle 'dogrover/vim-pentadactyl'
@@ -34,11 +33,11 @@ Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/TwitVim'
 Bundle 'vim-scripts/VOoM'
 Bundle 'vimwiki/vimwiki'
-Bundle 'yuratomo/w3m.vim'
 
 " Remap leader from / to ,
 " =============================================================================
@@ -47,14 +46,6 @@ let mapleader = ","
 " Remap : to ;
 " =============================================================================
 nnoremap ; :
-
-" Airline configuration
-" https://github.com/bling/vim-airline
-" =============================================================================
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_enable_branch = 1
-let g:airline_detect_modified=1
 
 " Settings for unite.vim
 " https://github.com/Shougo/unite.vim
@@ -69,9 +60,9 @@ nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+    " Enable navigation with control-j and control-k in insert mode
+    imap <buffer> <C-j> <Plug>(unite_select_next_line)
+    imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 endfunction
 
 " Use the system clipboard by default
@@ -88,7 +79,6 @@ colorscheme solarized
 set backspace=2
 set history=1000
 set ruler
-set laststatus=2
 set number
 set relativenumber
 set t_Co=256
@@ -150,9 +140,9 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
 
 " Remember info about open buffers on close
 set viminfo^=%
@@ -207,23 +197,23 @@ nnoremap <leader>md :%!pandoc -f markdown -t html5 <cr>
 " Escape/unescape & < > HTML entities in range (default current line)
 " =============================================================================
 function! HtmlEntities(line1, line2, action)
-  let search = @/
-  let range = 'silent ' . a:line1 . ',' . a:line2
-  if a:action == 0  " must convert &amp; last
-    execute range . 'sno/&lsquo;/‘/eg'
-    execute range . 'sno/&rsquo;/’/eg'
-    execute range . 'sno/&ldquo;/“/eg'
-    execute range . 'sno/&rdquo;/”/eg'
-    execute range . 'sno/&amp;/&/eg'
-  else              " must convert & first
-    execute range . 'sno/&/&amp;/eg'
-    execute range . 'sno/‘/&lsquo;/eg'
-    execute range . 'sno/’/&rsquo;/eg'
-    execute range . 'sno/“/&ldquo;/eg'
-    execute range . 'sno/”/&rdquo;/eg'
-  endif
-  nohl
-  let @/ = search
+    let search = @/
+    let range = 'silent ' . a:line1 . ',' . a:line2
+    if a:action == 0  " must convert &amp; last
+        execute range . 'sno/&lsquo;/‘/eg'
+        execute range . 'sno/&rsquo;/’/eg'
+        execute range . 'sno/&ldquo;/“/eg'
+        execute range . 'sno/&rdquo;/”/eg'
+        execute range . 'sno/&amp;/&/eg'
+    else              " must convert & first
+        execute range . 'sno/&/&amp;/eg'
+        execute range . 'sno/‘/&lsquo;/eg'
+        execute range . 'sno/’/&rsquo;/eg'
+        execute range . 'sno/“/&ldquo;/eg'
+        execute range . 'sno/”/&rdquo;/eg'
+    endif
+    nohl
+    let @/ = search
 endfunction
 command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
 noremap <silent> <leader>h :Entities 0<CR>
@@ -246,10 +236,53 @@ autocmd BufRead *.docx %!docx2txt.pl
 set backupskip=/tmp/*,/private/tmp/*
 
 "Set status line stuff and listchars
+"Make sense of statuslines here:
+"http://got-ravings.blogspot.ie/2008/08/vim-pr0n-making-statuslines-that-own.html
 " =============================================================================
+set laststatus=2
 set ttyfast " enable smoother screen redraw
 set listchars=tab:▸\ ,eol:¬ " Use the same symbols as TextMate for tabstops and EOLs
-set statusline+=%F
+
+hi User1 ctermbg=0  ctermfg=yellow guibg=#657b83  guifg=black
+hi User2 ctermbg=160   ctermfg=230  guibg=red   guifg=white
+hi User3 ctermbg=yellow ctermfg=black   guibg=#657b83 guifg=black
+
+set statusline+=%3* "set colour User3
+set statusline+=%F\  "show path and filename
+set statusline+=%1* " set colour User1
+set statusline+=\ %{fugitive#statusline()} "show current branch
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%=      "left/right separator
+set statusline+=%r\       "read only flag
+set statusline+=%2* "set colour User2
+set statusline+=%{StatuslineTrailingSpaceWarning()}
+set statusline+=%3* "set colour User3
+set statusline+=\ %y      "filetype
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}]\  "file format
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P\     "percent through file
+set showmode
+
+" Stolen directly from
+" http://got-ravings.blogspot.ie/2008/10/vim-pr0n-statusline-whitespace-flags.html
+" recalculate the trailing whitespace warning when idle, and after saving
+autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+
+" return '[\s]' if trailing white space is detected
+" return '' otherwise
+function! StatuslineTrailingSpaceWarning()
+    if !exists("b:statusline_trailing_space_warning")
+        if search('\s\+$', 'nw') != 0
+            let b:statusline_trailing_space_warning = '[\s]'
+        else
+            let b:statusline_trailing_space_warning = ''
+        endif
+    endif
+    return b:statusline_trailing_space_warning
+endfunction
 
 " Clear Registers, using :ClearRegisters
 " =============================================================================
@@ -270,9 +303,9 @@ command! ClearRegisters call ClearRegisters()
 let g:task_paper_follow_move=0
 let g:task_paper_styles={'overdue': 'ctermfg=37 guifg=#00afaf', 'today': 'ctermfg=166 guifg=#d75f00'}
 nnoremap <buffer> <silent> <Leader>tq
-    \    :<C-u>call taskpaper#add_tag('priority')<CR>
+            \    :<C-u>call taskpaper#add_tag('priority')<CR>
 nnoremap <buffer> <silent> <Leader>tQ
-    \    :<C-u>call taskpaper#delete_tag('priority', '')<CR>
+            \    :<C-u>call taskpaper#delete_tag('priority', '')<CR>
 
 " SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      sRGB        HSB
 " --------- ------- ---- -------  ----------- ---------- ----------- -----------
@@ -310,22 +343,22 @@ au FocusLost * :wa
 " =============================================================================
 let g:vimwiki_list = [{'path': '~/vimwiki/'}]
 let g:vimwiki_list = [{'path': '~/vimwiki/',
-                    \ 'syntax': 'markdown', 'ext': '.md'}]
+            \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " A function to execute formd and return the cursor to its original position within the buffer.
 " http://drbunsen.github.io/formd/
 " =============================================================================
 function! Formd(option)
-:let save_view = winsaveview()
-:let flag = a:option
-:if flag == "-r"
-:%! ~/bin/formd -r
-:elseif flag == "-i"
-:%! ~/bin/formd -i
-:else
-:%! ~/bin/formd -f
-:endif
-:call winrestview(save_view)
+    :let save_view = winsaveview()
+    :let flag = a:option
+    :if flag == "-r"
+    :%! ~/bin/formd -r
+    :elseif flag == "-i"
+    :%! ~/bin/formd -i
+    :else
+    :%! ~/bin/formd -f
+    :endif
+    :call winrestview(save_view)
 endfunction
 
 " formd mappings
