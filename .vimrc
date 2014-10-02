@@ -247,6 +247,7 @@ hi User1 ctermbg=0  ctermfg=yellow guibg=#657b83  guifg=black
 hi User2 ctermbg=160   ctermfg=230  guibg=red   guifg=white
 hi User3 ctermbg=yellow ctermfg=black   guibg=#657b83 guifg=black
 
+set statusline+=%n\ "buffer number
 set statusline+=%3* "set colour User3
 set statusline+=%F\  "show path and filename
 set statusline+=%1* " set colour User1
