@@ -34,7 +34,6 @@ Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/TwitVim'
 Bundle 'vim-scripts/VOoM'
@@ -52,11 +51,10 @@ nnoremap ; :
 " Airline configuration
 " https://github.com/bling/vim-airline
 " =============================================================================
-"let g:airline_left_sep = ''
-"let g:airline_right_sep = ''
-let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 let g:airline_enable_branch = 1
-let g:airline_section_c = '%{getcwd()}/%t'
+let g:airline_detect_modified=1
 
 " Settings for unite.vim
 " https://github.com/Shougo/unite.vim
