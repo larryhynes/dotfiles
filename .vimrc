@@ -91,6 +91,7 @@ set nolist
 set noshowmode
 set showcmd
 set visualbell t_vb=
+
 " Indentation settings
 " =============================================================================
 set tabstop=4 "Sets display width of tabs
@@ -247,8 +248,8 @@ hi User1 ctermbg=0  ctermfg=yellow guibg=#657b83  guifg=black
 hi User2 ctermbg=160   ctermfg=230  guibg=red   guifg=white
 hi User3 ctermbg=yellow ctermfg=black   guibg=#657b83 guifg=black
 
-set statusline+=%n\ "buffer number
 set statusline+=%3* "set colour User3
+set statusline+=[%n]\  "buffer number
 set statusline+=%F\  "show path and filename
 set statusline+=%1* " set colour User1
 set statusline+=\ %{fugitive#statusline()} "show current branch
@@ -257,7 +258,7 @@ set statusline+=%m      "modified flag
 set statusline+=%=      "left/right separator
 set statusline+=%r\       "read only flag
 set statusline+=%2* "set colour User2
-set statusline+=%{StatuslineTrailingSpaceWarning()}
+set statusline+=%{StatuslineTrailingSpaceWarning()} "warn about trailing white space (see below)
 set statusline+=%3* "set colour User3
 set statusline+=\ %y      "filetype
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
