@@ -1,7 +1,7 @@
 set nocompatible
 filetype off
 
-" Set utf-8 encoding
+" Use utf-8
 " =============================================================================
 set encoding=utf-8
 
@@ -47,24 +47,6 @@ let mapleader = ","
 " =============================================================================
 nnoremap ; :
 
-" Settings for unite.vim
-" https://github.com/Shougo/unite.vim
-" mostly based on
-" http://www.codeography.com/2013/06/17/replacing-all-the-things-with-unite-vim.html
-" =============================================================================
-let g:unite_source_history_yank_enable = 1
-nnoremap <leader>f :<C-u>Unite -buffer-name=files file<cr>
-nnoremap <leader>b :<C-u>Unite -buffer-name=buffer buffer<cr>
-nnoremap <leader>r :<C-u>Unite -buffer-name=mru file_mru<cr>
-nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
-
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-    " Enable navigation with control-j and control-k in insert mode
-    imap <buffer> <C-j> <Plug>(unite_select_next_line)
-    imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-endfunction
-
 " Use the system clipboard by default
 " =============================================================================
 set clipboard=unnamed
@@ -91,6 +73,7 @@ set nolist
 set noshowmode
 set showcmd
 set visualbell t_vb=
+set scrolloff=6 " From https://github.com/skwp/dotfiles/blob/master/vimrc
 
 " Indentation settings
 " =============================================================================
@@ -123,6 +106,57 @@ nmap <leader>q :nohlsearch<CR>
 " =============================================================================
 nmap j gj
 nmap k gk
+
+"Set statusline stuff and listchars
+"Make sense of statuslines here:
+"http://got-ravings.blogspot.com/2008/08/vim-pr0n-making-statuslines-that-own.html
+" =============================================================================
+set laststatus=2  " show the statusline
+set ttyfast " enable smoother screen redraw
+set listchars=tab:▸\ ,eol:¬,trail:. " Use the same symbols as TextMate for tabstops and EOLs
+
+hi User1 ctermbg=0  ctermfg=yellow guibg=#657b83  guifg=black
+hi User2 ctermbg=160   ctermfg=230  guibg=red   guifg=white
+hi User3 ctermbg=yellow ctermfg=black   guibg=#657b83 guifg=black
+
+set statusline+=%3*  "set colour User3
+set statusline+=[%n]\  "buffer number
+set statusline+=%F\  "show path and filename
+set statusline+=%1*  "set colour User1
+set statusline+=\ %{fugitive#statusline()} "show current branch
+set statusline+=%h  "help file flag
+set statusline+=%m  "modified flag
+set statusline+=%=  "left/right separator
+set statusline+=%r\  "read only flag
+set statusline+=%2*  "set colour User2
+set statusline+=%{StatuslineTrailingSpaceWarning()}  "warn about trailing white space (see below)
+set statusline+=%3*  "set colour User3
+set statusline+=\ %y "filetype
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}]\  "file format
+set statusline+=%c,  "cursor column
+set statusline+=%l/%L "cursor line/total lines
+set statusline+=\ %P\  "percent through file
+set showmode  "show which mode we're in
+highlight ModeMsg ctermfg=white guifg=white
+
+" Taken directly from
+" http://got-ravings.blogspot.ie/2008/10/vim-pr0n-statusline-whitespace-flags.html
+" recalculate the trailing whitespace warning when idle, and after saving
+autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+
+" return '[\s]' if trailing white space is detected
+" return '' otherwise
+function! StatuslineTrailingSpaceWarning()
+    if !exists("b:statusline_trailing_space_warning")
+        if search('\s\+$', 'nw') != 0
+            let b:statusline_trailing_space_warning = '[\s]'
+        else
+            let b:statusline_trailing_space_warning = ''
+        endif
+    endif
+    return b:statusline_trailing_space_warning
+endfunction
 
 " Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
 " =============================================================================
@@ -186,6 +220,24 @@ set undodir=~/.vim/undo
 set undolevels=1000
 set undoreload=10000
 
+" Settings for unite.vim
+" https://github.com/Shougo/unite.vim
+" mostly based on
+" http://www.codeography.com/2013/06/17/replacing-all-the-things-with-unite-vim.html
+" =============================================================================
+let g:unite_source_history_yank_enable = 1
+nnoremap <leader>f :<C-u>Unite -buffer-name=files file<cr>
+nnoremap <leader>b :<C-u>Unite -buffer-name=buffer buffer<cr>
+nnoremap <leader>r :<C-u>Unite -buffer-name=mru file_mru<cr>
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
+
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+    " Enable navigation with control-j and control-k in insert mode
+    imap <buffer> <C-j> <Plug>(unite_select_next_line)
+    imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+endfunction
+
 "Remap emmet (zen) autocomplete
 " =============================================================================
 let g:user_emmet_expandabbr_key='<C-e>'
@@ -236,56 +288,6 @@ autocmd BufRead *.docx %!docx2txt.pl
 " =============================================================================
 set backupskip=/tmp/*,/private/tmp/*
 
-"Set status line stuff and listchars
-"Make sense of statuslines here:
-"http://got-ravings.blogspot.ie/2008/08/vim-pr0n-making-statuslines-that-own.html
-" =============================================================================
-set laststatus=2
-set ttyfast " enable smoother screen redraw
-set listchars=tab:▸\ ,eol:¬ " Use the same symbols as TextMate for tabstops and EOLs
-
-hi User1 ctermbg=0  ctermfg=yellow guibg=#657b83  guifg=black
-hi User2 ctermbg=160   ctermfg=230  guibg=red   guifg=white
-hi User3 ctermbg=yellow ctermfg=black   guibg=#657b83 guifg=black
-
-set statusline+=%3* "set colour User3
-set statusline+=[%n]\  "buffer number
-set statusline+=%F\  "show path and filename
-set statusline+=%1* " set colour User1
-set statusline+=\ %{fugitive#statusline()} "show current branch
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%=      "left/right separator
-set statusline+=%r\       "read only flag
-set statusline+=%2* "set colour User2
-set statusline+=%{StatuslineTrailingSpaceWarning()} "warn about trailing white space (see below)
-set statusline+=%3* "set colour User3
-set statusline+=\ %y      "filetype
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}]\  "file format
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P\     "percent through file
-set showmode
-
-" Stolen directly from
-" http://got-ravings.blogspot.ie/2008/10/vim-pr0n-statusline-whitespace-flags.html
-" recalculate the trailing whitespace warning when idle, and after saving
-autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
-
-" return '[\s]' if trailing white space is detected
-" return '' otherwise
-function! StatuslineTrailingSpaceWarning()
-    if !exists("b:statusline_trailing_space_warning")
-        if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '[\s]'
-        else
-            let b:statusline_trailing_space_warning = ''
-        endif
-    endif
-    return b:statusline_trailing_space_warning
-endfunction
-
 " Clear Registers, using :ClearRegisters
 " =============================================================================
 function! ClearRegisters()
@@ -309,6 +311,7 @@ nnoremap <buffer> <silent> <Leader>tq
 nnoremap <buffer> <silent> <Leader>tQ
             \    :<C-u>call taskpaper#delete_tag('priority', '')<CR>
 
+" solarized colours put here for reference
 " SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      sRGB        HSB
 " --------- ------- ---- -------  ----------- ---------- ----------- -----------
 " base03    #002b36  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
@@ -393,7 +396,7 @@ nnoremap <leader>tr :%s/\s\+$//<CR>
 " =============================================================================
 nnoremap <leader>c :!cloudapp %<CR>
 
-" Clips results from :Gist to clipboard
+" Clip results from :Gist to clipboard
 " https://github.com/mattn/gist-vim
 " =============================================================================
 let g:gist_clip_command = 'pbcopy'
