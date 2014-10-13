@@ -6,44 +6,47 @@ filetype off
 set encoding=utf-8
 
 " Vundle
-" https://github.com/gmarik/vundle
+" https://github.com/gmarik/Vundle.vim
 " =============================================================================
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" Bundles for Vundle
+Plugin 'gmarik/Vundle.vim'
+
+" Plugins for Vundle
 " =============================================================================
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'davidoc/taskpaper.vim'
-Bundle 'dogrover/vim-pentadactyl'
-Bundle 'gregsexton/MatchTag'
-Bundle 'itspriddle/vim-marked'
-Bundle 'junegunn/goyo.vim'
-Bundle 'ledger/vim-ledger'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'mattn/calendar-vim'
-Bundle 'mattn/emmet-vim'
-Bundle 'mattn/gist-vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'PProvost/vim-markdown-jekyll'
-Bundle 'sheerun/vim-polyglot'
-Bundle 'Shougo/neomru.vim'
-Bundle 'Shougo/unite.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/TwitVim'
-Bundle 'vim-scripts/VOoM'
-Bundle 'vimwiki/vimwiki'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'davidoc/taskpaper.vim'
+Plugin 'dogrover/vim-pentadactyl'
+Plugin 'gregsexton/MatchTag'
+Plugin 'itspriddle/vim-marked'
+Plugin 'junegunn/goyo.vim'
+Plugin 'ledger/vim-ledger'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'mattn/calendar-vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'mattn/gist-vim'
+Plugin 'mattn/webapi-vim'
+Plugin 'PProvost/vim-markdown-jekyll'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'sjl/gundo.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/TwitVim'
+Plugin 'vim-scripts/VOoM'
+Plugin 'vimwiki/vimwiki'
+
+call vundle#end()
 
 " Remap leader from / to ,
 " =============================================================================
 let mapleader = ","
 
-" Remap : to ;
+" Remap ; to :
 " =============================================================================
 nnoremap ; :
 
@@ -193,6 +196,7 @@ au InsertLeave * set nopaste
 
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
+set spelllang=en_gb
 
 " Allow buffer switching without saving
 set hidden
@@ -429,3 +433,42 @@ set timeoutlen=2000 ttimeoutlen=0
 " http://paps.sourceforge.net/
 " =============================================================================
 nnoremap <leader>p :!/usr/local/bin/paps --font='Source Sans Pro 10' --paper=A4 --left-margin=144 "%" \| /usr/bin/open -f -a Preview<cr>
+
+" Support for gpg-encrypted files.
+" https://github.com/drmikehenry/vimfiles/blob/9b987c0349c9b1739242369d3e2cd62deacfd28c/vimrc
+" =============================================================================
+augroup local_encrypted
+" First, remove all autocmds in this group.
+autocmd!
+" First make sure nothing is written to ~/.viminfo while editing
+" an encrypted file.
+autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+" We don't want a swap file, as it writes unencrypted data to disk
+autocmd BufReadPre,FileReadPre *.gpg set noswapfile
+" Switch to binary mode to read the encrypted file
+autocmd BufReadPre,FileReadPre *.gpg set bin
+autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+autocmd BufReadPre,FileReadPre *.gpg let shsave=&sh
+autocmd BufReadPre,FileReadPre *.gpg let &sh='sh'
+autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt
+\ --default-recipient-self 2> /dev/null
+autocmd BufReadPost,FileReadPost *.gpg let &sh=shsave
+" Switch to normal mode for editing
+autocmd BufReadPost,FileReadPost *.gpg set nobin
+autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|
+\ unlet ch_save
+autocmd BufReadPost,FileReadPost *.gpg execute
+\ ":doautocmd BufReadPost " . expand("%:r")
+" Convert all text to encrypted text before writing
+autocmd BufWritePre,FileWritePre *.gpg set bin
+autocmd BufWritePre,FileWritePre *.gpg let shsave=&sh
+autocmd BufWritePre,FileWritePre *.gpg let &sh='sh'
+autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --encrypt
+\ --default-recipient-self 2>/dev/null
+autocmd BufWritePre,FileWritePre *.gpg let &sh=shsave
+" Undo the encryption so we are back in the normal text, directly
+" after the file has been written.
+autocmd BufWritePost,FileWritePost *.gpg silent u
+autocmd BufWritePost,FileWritePost *.gpg set nobin
+augroup END
