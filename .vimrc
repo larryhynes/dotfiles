@@ -73,7 +73,6 @@ set textwidth=0
 set wrapmargin=0
 set linebreak
 set nolist
-set noshowmode
 set showcmd
 set visualbell t_vb=
 set scrolloff=6 " From https://github.com/skwp/dotfiles/blob/master/vimrc
@@ -140,8 +139,8 @@ set statusline+=%{&ff}]\  "file format
 set statusline+=%c,  "cursor column
 set statusline+=%l/%L "cursor line/total lines
 set statusline+=\ %P\  "percent through file
-set showmode  "show which mode we're in
-highlight ModeMsg ctermfg=white guifg=white
+set noshowmode  "don't show which mode we're in
+" highlight ModeMsg ctermfg=white guifg=white
 
 " Taken directly from
 " http://got-ravings.blogspot.ie/2008/10/vim-pr0n-statusline-whitespace-flags.html
@@ -160,6 +159,12 @@ function! StatuslineTrailingSpaceWarning()
     endif
     return b:statusline_trailing_space_warning
 endfunction
+
+" Use a blinking upright bar cursor in Insert mode, a blinking block in normal
+if &term =~ '^xterm'
+  let &t_SI .= "\<Esc>[5 q"
+  let &t_EI .= "\<Esc>[1 q"
+endif
 
 " Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
 " =============================================================================
@@ -347,7 +352,7 @@ nnoremap <C-l> <C-w>l
 " =============================================================================
 au FocusLost * :wa
 
-" VimWiki, set path and use markdown
+" VimWiki options
 " https://github.com/vimwiki/vimwiki
 " =============================================================================
 let g:vimwiki_list = [{'path': '~/vimwiki/'}]
@@ -472,3 +477,9 @@ autocmd BufWritePre,FileWritePre *.gpg let &sh=shsave
 autocmd BufWritePost,FileWritePost *.gpg silent u
 autocmd BufWritePost,FileWritePost *.gpg set nobin
 augroup END
+
+" Settings for calendar-vim
+" https://github.com/mattn/calendar-vim
+" =============================================================================
+let g:calendar_monday=1
+let g:calendar_options='colorcolumn=0'
