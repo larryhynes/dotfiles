@@ -166,6 +166,12 @@ if &term =~ '^xterm'
   let &t_EI .= "\<Esc>[1 q"
 endif
 
+" Do the same in tmux
+if &term =~ '^screen'
+  let &t_SI .= "\<Esc>[5 q"
+  let &t_EI .= "\<Esc>[1 q"
+endif
+
 " Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
 " =============================================================================
 

@@ -123,10 +123,10 @@ fileviewer *.mp3 mp3info
 
 " Video
 filetype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv
-        \ {View using vlc}
         \ open -a vlc.app,
-fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob
-         \ ffprobe -show_files -pretty %f 2> /dev/null
+
+filetype *.mov
+        \ open -a QuickTime\ Player.app
 
 " Web
 filetype *.html,*.htm
@@ -142,6 +142,7 @@ filetype *.o nm %f | w3m
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in Preview}
         \ open -a Preview.app,
+
 " Office files
 filextype *.doc,*.docx
         \ {Open in Word}
