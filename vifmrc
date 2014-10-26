@@ -140,15 +140,13 @@ filetype *.o nm %f | w3m
 
 " Image
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-        \ {View in Preview}
         \ open -a Preview.app,
 
 " Office files
 filextype *.doc,*.docx
         \ {Open in Word}
         \ open -a Microsoft\ Word.app,
-filextype *.xsl,*.xslx
-        \{Open in Excel}
+filextype *.xls,*.xlsx,
         \ open -a Microsoft\ Excel.app,
 fileview *.docx, docx2txt.pl %f -
 
