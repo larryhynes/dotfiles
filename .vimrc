@@ -205,7 +205,7 @@ map <leader>pp :setlocal paste!<cr>
 " Always exit paste mode when leaving insert mode
 au InsertLeave * set nopaste
 
-" Pressing ,ss will toggle and untoggle spell checking
+" Leader ss to toggle spell checking
 map <leader>ss :setlocal spell!<cr>
 set spelllang=en_gb
 
@@ -483,6 +483,11 @@ autocmd BufWritePre,FileWritePre *.gpg let &sh=shsave
 autocmd BufWritePost,FileWritePost *.gpg silent u
 autocmd BufWritePost,FileWritePost *.gpg set nobin
 augroup END
+
+" Use blowfish for :X encryption
+" https://dgl.cx/2014/10/vim-blowfish
+" =============================================================================
+set cryptmethod=blowfish2
 
 " Settings for calendar-vim
 " https://github.com/mattn/calendar-vim

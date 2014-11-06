@@ -6,7 +6,8 @@ set from="larry@larryhynes.com"
 set hostname="larryhynes.com"
 set sendmail = "/usr/local/bin/msmtp -a larry"
 set sendmail_wait = 120
-set use_envelope_from
+set use_from = yes
+set use_envelope_from = yes
 
 # Alternate email addresses
 alternates (hello|lh)@larryhynes.com
