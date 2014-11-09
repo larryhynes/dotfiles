@@ -5,6 +5,14 @@ filetype off
 " =============================================================================
 set encoding=utf-8
 
+" Remap leader from / to ,
+" =============================================================================
+let mapleader = ","
+
+" Remap ; to :
+" =============================================================================
+nnoremap ; :
+
 " Vundle
 " https://github.com/gmarik/Vundle.vim
 " =============================================================================
@@ -33,7 +41,6 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'sjl/gundo.vim'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/TwitVim'
@@ -41,14 +48,6 @@ Plugin 'vim-scripts/VOoM'
 Plugin 'vimwiki/vimwiki'
 
 call vundle#end()
-
-" Remap leader from / to ,
-" =============================================================================
-let mapleader = ","
-
-" Remap ; to :
-" =============================================================================
-nnoremap ; :
 
 " Use the system clipboard by default
 " =============================================================================
