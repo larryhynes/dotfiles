@@ -493,3 +493,8 @@ set cryptmethod=blowfish2
 " =============================================================================
 let g:calendar_monday=1
 let g:calendar_options='colorcolumn=0'
+
+" Settings for vim-easymotion
+" https://github.com/Lokaltog/vim-easymotion
+" =============================================================================
+let g:EasyMotion_smartcase = 1
