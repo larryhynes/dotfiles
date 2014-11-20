@@ -17,13 +17,15 @@ set spoolfile = "/Users/larry/.mail/larry/INBOX"
 
 # Mailboxes to show in the sidebar
 mailboxes /Users/larry/.mail/larry/INBOX \
+          /Users/larry/.mail/larry/Family \
           /Users/larry/.mail/larry/Archive \
+          /Users/larry/.mail/larry/Accounts \
+          /Users/larry/.mail/larry/logs \
+          /Users/larry/.mail/larry/Spam \
+          /Users/larry/.mail/larry/Sent\ Messages \
           /Users/larry/.mail/larry/2013 \
           /Users/larry/.mail/larry/2012 \
-          /Users/larry/.mail/larry/Accounts \
           /Users/larry/.mail/larry/Drafts \
-          /Users/larry/.mail/larry/Sent\ Messages \
-          /Users/larry/.mail/larry/Spam \
           /Users/larry/.mail/larry/Trash \
           /Users/larry/.mail/search \
 
@@ -195,9 +197,8 @@ set locale="en_IE.UTF-8"
 # set pager=vim
 # unset prompt_after
 
-# Set up scoring and highlight high-scored messages in the index
+# Set up scoring
 source ~/.mutt/scoring
-color index blue default "~n>10"
 
 # Hooks
 source ~/.mutt/hooks
