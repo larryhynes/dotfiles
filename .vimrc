@@ -498,3 +498,9 @@ let g:calendar_options='colorcolumn=0'
 " https://github.com/Lokaltog/vim-easymotion
 " =============================================================================
 let g:EasyMotion_smartcase = 1
+
+" Remember and load folds
+" http://vim.wikia.com/wiki/Make_views_automatic
+" =============================================================================
+au BufWinLeave * silent! mkview 
+au BufWinEnter * silent! loadview
