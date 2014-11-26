@@ -161,14 +161,14 @@ endfunction
 
 " Use a blinking upright bar cursor in Insert mode, a blinking block in normal
 if &term == 'xterm-256color'
-  let &t_SI .= "\<Esc>[5 q"
-  let &t_EI .= "\<Esc>[1 q"
+  let &t_SI = "\<Esc>[5 q"
+  let &t_EI = "\<Esc>[1 q"
 endif
 
 " Do the same in tmux
 if &term == 'screen-256color'
-  let &t_SI .= "\<Esc>[5 q"
-  let &t_EI .= "\<Esc>[1 q"
+  let &t_SI = "\<Esc>[5 q"
+  let &t_EI = "\<Esc>[1 q"
 endif
 
 " Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
