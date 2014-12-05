@@ -25,11 +25,13 @@ Plugin 'gmarik/Vundle.vim'
 " =============================================================================
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'csexton/jekyll.vim'
 Plugin 'davidoc/taskpaper.vim'
 Plugin 'dogrover/vim-pentadactyl'
 Plugin 'gregsexton/MatchTag'
 Plugin 'itspriddle/vim-marked'
 Plugin 'junegunn/goyo.vim'
+Plugin 'klen/python-mode'
 Plugin 'ledger/vim-ledger'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/calendar-vim'
@@ -41,6 +43,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/TwitVim'
@@ -160,15 +163,14 @@ function! StatuslineTrailingSpaceWarning()
 endfunction
 
 " Use a blinking upright bar cursor in Insert mode, a blinking block in normal
-if &term == 'xterm-256color'
-  let &t_SI = "\<Esc>[5 q"
-  let &t_EI = "\<Esc>[1 q"
+if &term == 'xterm-256color' || &term == 'screen-256color'
+    let &t_SI = "\<Esc>[5 q"
+    let &t_EI = "\<Esc>[1 q"
 endif
 
-" Do the same in tmux
-if &term == 'screen-256color'
-  let &t_SI = "\<Esc>[5 q"
-  let &t_EI = "\<Esc>[1 q"
+if exists('$TMUX')
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 endif
 
 " Some stuff for tabs and buffers, mostly from http://amix.dk/vim/vimrc.html
@@ -448,39 +450,39 @@ nnoremap <leader>p :!/usr/local/bin/paps --font='Source Sans Pro 10' --paper=A4 
 " https://github.com/drmikehenry/vimfiles/blob/9b987c0349c9b1739242369d3e2cd62deacfd28c/vimrc
 " =============================================================================
 augroup local_encrypted
-" First, remove all autocmds in this group.
-autocmd!
-" First make sure nothing is written to ~/.viminfo while editing
-" an encrypted file.
-autocmd BufReadPre,FileReadPre *.gpg set viminfo=
-" We don't want a swap file, as it writes unencrypted data to disk
-autocmd BufReadPre,FileReadPre *.gpg set noswapfile
-" Switch to binary mode to read the encrypted file
-autocmd BufReadPre,FileReadPre *.gpg set bin
-autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
-autocmd BufReadPre,FileReadPre *.gpg let shsave=&sh
-autocmd BufReadPre,FileReadPre *.gpg let &sh='sh'
-autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
-autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt
-\ --default-recipient-self 2> /dev/null
-autocmd BufReadPost,FileReadPost *.gpg let &sh=shsave
-" Switch to normal mode for editing
-autocmd BufReadPost,FileReadPost *.gpg set nobin
-autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|
-\ unlet ch_save
-autocmd BufReadPost,FileReadPost *.gpg execute
-\ ":doautocmd BufReadPost " . expand("%:r")
-" Convert all text to encrypted text before writing
-autocmd BufWritePre,FileWritePre *.gpg set bin
-autocmd BufWritePre,FileWritePre *.gpg let shsave=&sh
-autocmd BufWritePre,FileWritePre *.gpg let &sh='sh'
-autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --encrypt
-\ --default-recipient-self 2>/dev/null
-autocmd BufWritePre,FileWritePre *.gpg let &sh=shsave
-" Undo the encryption so we are back in the normal text, directly
-" after the file has been written.
-autocmd BufWritePost,FileWritePost *.gpg silent u
-autocmd BufWritePost,FileWritePost *.gpg set nobin
+    " First, remove all autocmds in this group.
+    autocmd!
+    " First make sure nothing is written to ~/.viminfo while editing
+    " an encrypted file.
+    autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+    " We don't want a swap file, as it writes unencrypted data to disk
+    autocmd BufReadPre,FileReadPre *.gpg set noswapfile
+    " Switch to binary mode to read the encrypted file
+    autocmd BufReadPre,FileReadPre *.gpg set bin
+    autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+    autocmd BufReadPre,FileReadPre *.gpg let shsave=&sh
+    autocmd BufReadPre,FileReadPre *.gpg let &sh='sh'
+    autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+    autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt
+                \ --default-recipient-self 2> /dev/null
+    autocmd BufReadPost,FileReadPost *.gpg let &sh=shsave
+    " Switch to normal mode for editing
+    autocmd BufReadPost,FileReadPost *.gpg set nobin
+    autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|
+                \ unlet ch_save
+    autocmd BufReadPost,FileReadPost *.gpg execute
+                \ ":doautocmd BufReadPost " . expand("%:r")
+    " Convert all text to encrypted text before writing
+    autocmd BufWritePre,FileWritePre *.gpg set bin
+    autocmd BufWritePre,FileWritePre *.gpg let shsave=&sh
+    autocmd BufWritePre,FileWritePre *.gpg let &sh='sh'
+    autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --encrypt
+                \ --default-recipient-self 2>/dev/null
+    autocmd BufWritePre,FileWritePre *.gpg let &sh=shsave
+    " Undo the encryption so we are back in the normal text, directly
+    " after the file has been written.
+    autocmd BufWritePost,FileWritePost *.gpg silent u
+    autocmd BufWritePost,FileWritePost *.gpg set nobin
 augroup END
 
 " Use blowfish for :X encryption
@@ -502,5 +504,13 @@ let g:EasyMotion_smartcase = 1
 " Remember and load folds
 " http://vim.wikia.com/wiki/Make_views_automatic
 " =============================================================================
-au BufWinLeave * silent! mkview 
+au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
+
+" Settings for jekyll.vim
+" https://github.com/csexton/jekyll.vim
+" =============================================================================
+let g:jekyll_path = "~/hyde"
+map <Leader>jb  :JekyllBuild<CR>
+map <Leader>jn  :JekyllPost<CR>
+map <Leader>jl  :JekyllList<CR>

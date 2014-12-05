@@ -1,3 +1,5 @@
+"/* vim: set filetype=vim : */
+
 " This is all based on the sample vifmrc that ships with vifm
 " http://vifm.sourceforge.net/
 
@@ -115,62 +117,62 @@ filetype *.ps open -a Preview.app
 
 " Audio
 filetype *.wav,*.mp3,*.flac,*.ogg,*.m4a
-       \ {Play using ffplay}
-       \ ffplay %c,
-       \ {Play using MPlayer}
-       \ play_music %f,
+            \ {Play using ffplay}
+            \ ffplay %c,
+            \ {Play using MPlayer}
+            \ play_music %f,
 fileviewer *.mp3 mp3info
 
 " Video
 filetype *.avi,*.mp4,*.wmv,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv
-        \ open -a vlc.app,
+            \ open -a VLC.app,
 
 filetype *.mov
-        \ open -a QuickTime\ Player.app
+            \ open -a QuickTime\ Player.app
 
 " Web
 filetype *.html,*.htm
-        \ {open in vim}
-        \ vim,
-        \ {open in browser}
-        \ open -a Firefox.app
+            \ {open in vim}
+            \ vim,
+            \ {open in browser}
+            \ open -a Firefox.app
 
 " Object
 filetype *.o nm %f | w3m
 
 " Image
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-        \ open -a Preview.app,
+            \ open -a Preview.app,
 
 " Office files
 filextype *.doc,*.docx
-        \ {Open in Word}
-        \ open -a Microsoft\ Word.app,
+            \ {Open in Word}
+            \ open -a Microsoft\ Word.app,
 filextype *.xls,*.xlsx,
-        \ open -a Microsoft\ Excel.app,
+            \ open -a Microsoft\ Excel.app,
 fileview *.docx, docx2txt.pl %f -
 
 " MD5
 filetype *.md5
-       \ {Check MD5 hash sum}
-       \ md5sum -c %f
+            \ {Check MD5 hash sum}
+            \ md5sum -c %f
 
 " Extract zip files
 filetype *.zip
-       \ unzip %f
+            \ unzip %f
 fileviewer *.zip,*.jar,*.war,*.ear zip -sf %c
 
 " Extract tar archives
 filetype *.tar,*.tar.bz2,*.tbz2,*.tgz,*.tar.gz
-       \ tar -xf %f
+            \ tar -xf %f
 
 " Extract .bz2 archives
 filetype *.bz2
-        \ bzip2 -d %f
+            \ bzip2 -d %f
 
 " Extract .gz files
 filetype *.gz
-        \ gunzip %f
+            \ gunzip %f
 
 " Mount .dmg archives
 filetype *.dmg open
@@ -183,7 +185,7 @@ filetype *.pkg open
 " set vifminfo=options,filetypes,commands,bookmarks,dhistory,state,cs
 " Like in vi
 set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
-    \phistory,dirstack,registers,bookmarks
+            \phistory,dirstack,registers,bookmarks
 
 " Sample mappings
 nmap s :shell<cr>
