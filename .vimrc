@@ -28,8 +28,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'csexton/jekyll.vim'
 Plugin 'davidoc/taskpaper.vim'
 Plugin 'dogrover/vim-pentadactyl'
+Plugin 'godlygeek/tabular'
 Plugin 'gregsexton/MatchTag'
-Plugin 'itspriddle/vim-marked'
 Plugin 'junegunn/goyo.vim'
 Plugin 'klen/python-mode'
 Plugin 'ledger/vim-ledger'
@@ -38,7 +38,7 @@ Plugin 'mattn/calendar-vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim'
-Plugin 'PProvost/vim-markdown-jekyll'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite.vim'
@@ -47,7 +47,6 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/TwitVim'
-Plugin 'vim-scripts/VOoM'
 Plugin 'vimwiki/vimwiki'
 
 call vundle#end()
@@ -514,3 +513,27 @@ let g:jekyll_path = "~/hyde"
 map <Leader>jb  :JekyllBuild<CR>
 map <Leader>jn  :JekyllPost<CR>
 map <Leader>jl  :JekyllList<CR>
+
+" Sum selected numbers
+" https://github.com/kana/config/blob/master/vim/personal/dot.vimrc
+" =============================================================================
+command! -bang -bar -nargs=* -range Sum
+            \ <line1>,<line2>call s:cmd_Sum(<bang>0, <f-args>)
+function! s:cmd_Sum(banged_p, ...) range
+    let field_number = (1 <= a:0 ? a:1 : 1)
+    let field_separator = (2 <= a:0 ? a:2 : 0)
+    execute a:firstline ',' a:lastline '!awk'
+                \ (field_separator is 0 ? '' : '-F'.field_separator)
+                \ "'"
+                \ 'BEGIN {x = 0}'
+                \ '{x = x + $'.field_number '}'
+                \ '{if (\!' a:banged_p ') print $0}'
+                \ 'END {print x}'
+                \ "'"
+endfunction
+
+" Settings for vim-markdown
+" https://github.com/plasticboy/vim-markdown
+" =============================================================================
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_folding_disabled=1
