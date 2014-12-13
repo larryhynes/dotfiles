@@ -129,6 +129,7 @@ set statusline+=%1*  "set colour User1
 set statusline+=\ %{fugitive#statusline()} "show current branch
 set statusline+=%h  "help file flag
 set statusline+=%m  "modified flag
+set statusline+=%{&paste?'[paste]':''} "show when paste is set
 set statusline+=%=  "left/right separator
 set statusline+=%r\  "read only flag
 set statusline+=%2*  "set colour User2
@@ -405,11 +406,6 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " Use <leader>tr to remove all trailing whitespaces
 " =============================================================================
 nnoremap <leader>tr :%s/\s\+$//<CR>
-
-" Use <leader>c to upload current file to cloudapp using cloudapp cli
-" https://github.com/cloudapp/cloudapp.rb
-" =============================================================================
-nnoremap <leader>c :!cloudapp %<CR>
 
 " Clip results from :Gist to clipboard
 " https://github.com/mattn/gist-vim

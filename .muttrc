@@ -110,9 +110,9 @@ set status_format = "───[ %f ]───[%r%m messages%?n? (%n new)?%?d? (%
 
 # Header Options
 ignore *                                # ignore all headers
-unignore from: to: cc: date: subject:   # show only these
+unignore from: to: cc: date: subject: x-mailer x-url user-agent   # show only these
 unhdr_order *                           # some distros order things by default
-hdr_order from: to: cc: date: subject:  # and in this order
+hdr_order from: to: cc: date: subject: x-mailer x-url user-agent # and in this order
 my_hdr Reply-To: larry@larryhynes.com
 my_hdr X-PGP-Key: https://larryhynes.com/larry_hynes_pubkey.asc
 my_hdr X-URL: https://larryhynes.com
