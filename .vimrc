@@ -31,7 +31,6 @@ Plugin 'dogrover/vim-pentadactyl'
 Plugin 'godlygeek/tabular'
 Plugin 'gregsexton/MatchTag'
 Plugin 'junegunn/goyo.vim'
-Plugin 'klen/python-mode'
 Plugin 'ledger/vim-ledger'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'mattn/calendar-vim'
@@ -76,7 +75,7 @@ set linebreak
 set nolist
 set showcmd
 set visualbell t_vb=
-set scrolloff=6 " From https://github.com/skwp/dotfiles/blob/master/vimrc
+set scrolloff=4 " From https://github.com/skwp/dotfiles/blob/master/vimrc
 
 " Indentation settings
 " =============================================================================
@@ -407,6 +406,11 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " =============================================================================
 nnoremap <leader>tr :%s/\s\+$//<CR>
 
+" Upload to lhyn.es using Dropshare
+" http://getdropsha.re/
+" =============================================================================
+nnoremap <leader>c :!/usr/bin/open -g -a /Applications/Dropshare.app %<cr>
+
 " Clip results from :Gist to clipboard
 " https://github.com/mattn/gist-vim
 " =============================================================================
@@ -533,3 +537,7 @@ endfunction
 " =============================================================================
 let g:vim_markdown_frontmatter=1
 let g:vim_markdown_folding_disabled=1
+
+" Run python code with <leader>r
+" =============================================================================
+nnoremap <leader>r :exec '!python' shellescape(@%, 1)<cr>
