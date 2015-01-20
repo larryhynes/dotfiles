@@ -21,8 +21,10 @@ mailboxes /Users/larry/.mail/larry/INBOX \
           /Users/larry/.mail/larry/Archive \
           /Users/larry/.mail/larry/Accounts \
           /Users/larry/.mail/larry/logs \
+          /Users/larry/.mail/larry/walking \
           /Users/larry/.mail/larry/Spam \
           /Users/larry/.mail/larry/Sent\ Messages \
+          /Users/larry/.mail/larry/2014 \
           /Users/larry/.mail/larry/2013 \
           /Users/larry/.mail/larry/2012 \
           /Users/larry/.mail/larry/Drafts \
@@ -53,6 +55,7 @@ set delete               # don't ask, just do
 unset confirmappend      # don't ask, just do!
 set quit                 # don't ask, just do!!
 set beep_new             # bell on new mails
+unset beep               # Don't beep on errors
 set pipe_decode          # strip headers and eval mimes when piping
 set thorough_search      # strip headers and eval mimes before searching
 unset abort_unmodified
@@ -69,7 +72,7 @@ source /Users/larry/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
 
 # Index View Options
 set date_format = "%d/%m %H:%M"
-set index_format = "%2N [%Z]  %D  %4c %2M | %-20.20L  | %-3C | %s"
+set index_format = "%2N [%Z]  %D  %4c %2M | %-20.20F  | %-3C | %s"
 set sort = threads                         # like gmail
 set sort_aux = reverse-last-date-received  # like gmail
 set uncollapse_jump                        # don't collapse on an unread message
@@ -82,7 +85,7 @@ set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
 set askcc                            # ask for CC:
 set fcc_attach                       # save attachments with the body
-set mime_forward                     # forward attachments as part of body
+#set mime_forward                     # forward attachments as part of body
 set forward_format = "Fwd: %s"       # format of subject when forwarding
 set forward_decode                   # decode when forwarding
 set attribution = "[%d] %n:"         # format of quoting header
@@ -100,7 +103,7 @@ set pager_stop
 
 # Sidebar Patch
 # http://www.lunar-linux.org/mutt-sidebar/
-set sidebar_delim   = '  '
+set sidebar_delim   = ' | '
 set sidebar_visible = yes
 set sidebar_width   = 28
 
@@ -110,10 +113,11 @@ set status_format = "───[ %f ]───[%r%m messages%?n? (%n new)?%?d? (%
 
 # Header Options
 ignore *                                # ignore all headers
-unignore from: to: cc: date: subject: x-mailer x-url user-agent   # show only these
+unignore from: to: cc: date: subject: x-mailer x-url user-agent x-pgp-key x-pgp-keyid  # show only these
 unhdr_order *                           # some distros order things by default
-hdr_order from: to: cc: date: subject: x-mailer x-url user-agent # and in this order
+hdr_order from: to: cc: date: subject: x-mailer x-url user-agent x-pgp-key x-pgp-keyid # and in this order
 my_hdr Reply-To: larry@larryhynes.com
+my_hdr X-PGP-KeyID: F9259231
 my_hdr X-PGP-Key: https://larryhynes.com/larry_hynes_pubkey.asc
 my_hdr X-URL: https://larryhynes.com
 
@@ -137,6 +141,9 @@ macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 macro pager \cb <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 # macro pager \cb <pipe-entry>'w3m'<enter> 'Follow links in w3m'
 
+# use http://www.memoryhole.net/~kyle/extract_url/ to extract urls to send to pinboard
+macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/extract_url.pl<enter>" "get URLs"
+
 # use mu for search
 # http://www.djcbsoftware.nl/code/mu/
 macro index S "<shell-escape>mu find --clearlinks --format=links --linksdir=/Users/larry/.mail/search " "mu find"
@@ -154,9 +161,6 @@ macro index,pager \ep "<pipe-entry> sed '/^>.*/,\$\d' | paps --font='Source Sans
 # add mail as a todo item in taskpaper
 # http://larryhynes.net/2013/11/mutt-to-taskpaper.html
 macro index,pager \Ct "<pipe-entry>~/mutt_to_taskpaper.sh<enter>"
-
-# use http://www.memoryhole.net/~kyle/extract_url/ to extract urls to send to pinboard
-macro index,pager \Cu "<enter-command> unset pipe_decode<enter><pipe-message>~/extract_url.pl<enter>" "get URLs"
 
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 

@@ -200,10 +200,10 @@ nmap ,c :!/usr/bin/open -g -a /Applications/Dropshare.app %f<cr>
 nmap gb :file &<cr>l
 
 " Yank current directory path into the clipboard
-nmap yd :!echo %d | pbcopy<cr>
+nmap yd :!printf %d | pbcopy<cr>
 
 " Yank current file path into the clipboard
-nmap yf :!echo %c:p | pbcopy<cr>
+nmap yf :!printf %c:p | pbcopy<cr>
 
 " Mappings for faster renaming
 nmap I cw<c-a>

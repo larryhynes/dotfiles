@@ -37,7 +37,6 @@ Plugin 'mattn/calendar-vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'mattn/webapi-vim'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite.vim'
@@ -205,9 +204,11 @@ map <leader>pp :setlocal paste!<cr>
 " Always exit paste mode when leaving insert mode
 au InsertLeave * set nopaste
 
-" Leader ss to toggle spell checking
+" Leader ss to toggle spell checking and set the style for errors
 map <leader>ss :setlocal spell!<cr>
 set spelllang=en_gb
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=red
 
 " Allow buffer switching without saving
 set hidden
