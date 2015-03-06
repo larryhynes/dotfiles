@@ -38,7 +38,7 @@ Maid.rules do
 
 ### File invoices to invoice folder
   rule 'Invoices in File folder' do
-    move(dir('~/.mail/file/*INVOICE*'), '~/Documents/invoices_2014')
+    move(dir('~/.mail/file/*INVOICE*'), '~/Documents/invoices_2015')
   end
 
 ### File estimates to estimate folder
@@ -48,7 +48,7 @@ Maid.rules do
 
 ### File receipts to receipts folder
   rule 'Receipts in File folder' do
-    move(dir('~/.mail/file/*receipt*'), '~/Documents/receipts_2014')
+    move(dir('~/.mail/file/*receipt*'), '~/Documents/receipts_2015')
   end
 
 ### File proofs to Proofs folder

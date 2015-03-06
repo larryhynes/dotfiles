@@ -1,5 +1,4 @@
 set nocompatible
-filetype off
 
 " Use utf-8
 " =============================================================================
@@ -13,41 +12,38 @@ let mapleader = ","
 " =============================================================================
 nnoremap ; :
 
-" Vundle
-" https://github.com/gmarik/Vundle.vim
+" Vim plug plugin manager
+" https://github.com/junegunn/vim-plug
 " =============================================================================
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/bundle')
 
-Plugin 'gmarik/Vundle.vim'
-
-" Plugins for Vundle
+" Plugins
 " =============================================================================
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'csexton/jekyll.vim'
-Plugin 'davidoc/taskpaper.vim'
-Plugin 'dogrover/vim-pentadactyl'
-Plugin 'godlygeek/tabular'
-Plugin 'gregsexton/MatchTag'
-Plugin 'junegunn/goyo.vim'
-Plugin 'ledger/vim-ledger'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'mattn/calendar-vim'
-Plugin 'mattn/emmet-vim'
-Plugin 'mattn/gist-vim'
-Plugin 'mattn/webapi-vim'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/TwitVim'
-Plugin 'vimwiki/vimwiki'
+Plug 'altercation/vim-colors-solarized'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'davidoc/taskpaper.vim'
+Plug 'dogrover/vim-pentadactyl'
+Plug 'godlygeek/tabular'
+Plug 'gregsexton/MatchTag'
+Plug 'junegunn/goyo.vim'
+Plug 'ledger/vim-ledger'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'mattn/calendar-vim'
+Plug 'mattn/emmet-vim'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite.vim'
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/TwitVim'
+Plug 'vimwiki/vimwiki'
 
-call vundle#end()
+call plug#end()
 
 " Use the system clipboard by default
 " =============================================================================
@@ -419,7 +415,7 @@ let g:gist_clip_command = 'pbcopy'
 
 " <leader>nn opens my note file
 " =============================================================================
-nnoremap <leader>nn :e ~/notes/tandy.txt<cr>
+nnoremap <leader>nn :e ~/notes/notes.txt<cr>
 
 " Settings for twitvim
 " https://github.com/vim-scripts/TwitVim
@@ -542,3 +538,7 @@ let g:vim_markdown_folding_disabled=1
 " Run python code with <leader>r
 " =============================================================================
 nnoremap <leader>r :exec '!python' shellescape(@%, 1)<cr>
+
+" Make .nfo files slightly easier to read
+" =============================================================================
+au BufNewFile,BufRead *.nfo set filetype=xml
