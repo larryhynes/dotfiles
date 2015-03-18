@@ -176,6 +176,9 @@ filetype *.gz
 " Mount .dmg archives
 filetype *.dmg open
 
+" Mount disk .img
+filetype *.img open
+
 " Open .pkg binaries
 filetype *.pkg open
 
