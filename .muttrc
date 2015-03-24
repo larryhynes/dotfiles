@@ -21,8 +21,8 @@ mailboxes /Users/larry/.mail/larry/INBOX \
           /Users/larry/.mail/larry/Archive \
           /Users/larry/.mail/larry/Accounts \
           /Users/larry/.mail/larry/logs \
-          /Users/larry/.mail/larry/walking \
           /Users/larry/.mail/larry/Spam \
+          /Users/larry/.mail/larry/walking \
           /Users/larry/.mail/larry/Sent\ Messages \
           /Users/larry/.mail/larry/2014 \
           /Users/larry/.mail/larry/2013 \
@@ -88,7 +88,7 @@ set fcc_attach                       # save attachments with the body
 #set mime_forward                     # forward attachments as part of body
 set forward_format = "Fwd: %s"       # format of subject when forwarding
 set forward_decode                   # decode when forwarding
-set attribution = "[%d] %n:"         # format of quoting header
+set attribution = "[%d] %n:\\n"         # format of quoting header
 set reply_to                         # reply to Reply to: field
 set include                          # include message in replies
 set forward_quote                    # include message in forwards
@@ -234,6 +234,13 @@ pipe_decode=no wait_key=no<enter>\
 <enter-command> set pipe_decode=\$my_pipe_decode wait_key=\$my_wait_key \
 &my_pipe_decode &my_wait_key<enter>\
 " "view HTML (safe) in browser"
+
+# Getting very old-skool with the t-prot script
+# http://www.escape.de/~tolot/mutt/
+# set display_filter="t-prot -cemkS --bigq --fixind -M=mutt"
+# Or, on second thoughts, let's let sed handle it
+# http://www.guckes.net/Mutt/setup.html
+set display_filter="/usr/bin/sed -f /Users/larry/.mutt/muttsed"
 
 # Set up scoring
 source ~/.mutt/scoring

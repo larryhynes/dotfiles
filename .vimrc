@@ -430,7 +430,7 @@ nnoremap <leader>g :GundoToggle<cr>
 " Call urlview on a file and list urls for launching in browser
 " http://linuxcommand.org/man_pages/urlview1.html
 " =============================================================================
-nnoremap <leader>u :!urlview "%"<cr>
+nnoremap <leader>u :!urlpager -t "%"<cr>
 
 " Some settings for key speed
 " http://usevim.com/2014/07/11/key-speed
