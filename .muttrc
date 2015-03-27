@@ -237,10 +237,12 @@ pipe_decode=no wait_key=no<enter>\
 
 # Getting very old-skool with the t-prot script
 # http://www.escape.de/~tolot/mutt/
-# set display_filter="t-prot -cemkS --bigq --fixind -M=mutt"
+# set display_filter="/usr/local/bin/t-prot -cemkS --bigq --fixind -M=mutt"
+#
 # Or, on second thoughts, let's let sed handle it
 # http://www.guckes.net/Mutt/setup.html
-set display_filter="/usr/bin/sed -f /Users/larry/.mutt/muttsed"
+# http://stackoverflow.com/questions/11287564/getting-sed-error-illegal-byte-sequence-in-bash
+set display_filter="LANG=C /usr/bin/sed -f /Users/larry/.mutt/muttsed"
 
 # Set up scoring
 source ~/.mutt/scoring
