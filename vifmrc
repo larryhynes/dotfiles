@@ -69,9 +69,6 @@ set smartcase
 " Don't highlight search results automatically
 set nohlsearch
 
-" Remap <leader> to ,
-let mapleader = ","
-
 " Use increment searching (search while typing)
 set incsearch
 
@@ -135,7 +132,11 @@ command! reload :write | restart
 " :filetype extensions FUSE_MOUNT2|some_mount_command using %PARAM and %DESTINATION_DIR variables
 " %PARAM and %DESTINATION_DIR are filled in by vifm at runtime.
 " A sample line might look like this:
-" :filetype *.ssh FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR
+filetype *.ssh
+        \ {Mount with FUSE}
+        \ FUSE_MOUNT2|sshfs %PARAM %DESTINATION_DIR,
+        \ {Open in vim}
+        \ vim,
 " %PARAM value is filled from the first line of file (whole line).
 " Example first line for SshMount filetype: root@127.0.0.1:/
 "
@@ -176,7 +177,7 @@ filextype *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mo
         \ {View using mplayer}
         \ open -a MPlayerX.app,
 fileviewer *.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.vob,*.flv,*.m2v,*.mov,*.webm,*.ts,*.m4v
-        \ ffprobe -pretty %c 2>&1
+        \ ffprobe -pretty -hide_banner %c 2>&1
 
 " Web
 filextype *.html,*.htm
@@ -184,6 +185,8 @@ filextype *.html,*.htm
         \ vim,
         \ {Open in Firefox}
         \ open -a Firefox.app,
+        \ {Open in w3m}
+        \ w3m,
 fileviewer *.html,*.htm w3m -dump -T text/html
 
 " Object
@@ -204,7 +207,7 @@ filetype *.md5
         \ md5 %f
 
 " GPG signature
-filetype *.sig
+filetype *.asc
         \ {Check signature}
         \ !!gpg --verify %c,
         \ {Open in vim}
@@ -288,6 +291,8 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 " Customize view columns a bit (enable ellipsis for truncated file names)
 "
 " windo set viewcolumns=-{name}..,6{}.
+
+" Set relative numbering for 2nd pane
 windo set relativenumber
 
 " Filter-out build and temporary files
@@ -296,7 +301,7 @@ windo set relativenumber
 
 " ------------------------------------------------------------------------------
 
-" Sample mappings
+" Mappings
 nnoremap s :shell<cr>
 nnoremap S :sort<cr>
 nnoremap w :view<cr>
@@ -319,7 +324,6 @@ nnoremap yf :!printf %c:p | pbcopy<cr>
 " Mappings for faster renaming
 nnoremap I cw<c-a>
 nnoremap cc cw<c-u>
-nnoremap A cw<c-w>
 
 " Open vim to edit vifmrc and apply settings after returning to vifm
 nnoremap ,v :execute ':!vim $MYVIFMRC' | restart<cr>

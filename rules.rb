@@ -27,14 +27,14 @@ Maid.rules do
     trash(dir('~/Downloads/*.dmg'))
   end
 
-### Delete Application .ZIP files in Downloads
-  rule 'Mac OS X applications in zip files' do
-    found = dir('~/Downloads/*.zip').select { |path|
-      zipfile_contents(path).any? { |c| c.match(/\.app$/) }
-    }
-
-    trash(found)
-  end
+#### Delete Application .ZIP files in Downloads
+#  rule 'Mac OS X applications in zip files' do
+#    found = dir('~/Downloads/*.zip').select { |path|
+#      zipfile_contents(path).any? { |c| c.match(/\.app$/) }
+#    }
+#
+#    trash(found)
+#  end
 
 ### File invoices to invoice folder
   rule 'Invoices in File folder' do
@@ -71,15 +71,15 @@ Maid.rules do
     move(dir('~/Downloads/*.pdf'), '~/Documents')
   end
 
-### Move .AVI and .MP4 files from Downloads to my_movies
-  rule 'Movie files in Downloads' do
-    move(dir('~/Downloads/*.avi'), '/Volumes/Voloom/movies')
-    move(dir('~/Downloads/*/*.avi'), '/Volumes/Voloom/movies')
-    move(dir('~/Downloads/*.mp4'), '/Volumes/Voloom/movies')
-    move(dir('~/Downloads/*/*.mp4'), '/Volumes/Voloom/movies')
-    move(dir('~/Downloads/*.mkv'), '/Volumes/Voloom/movies')
-    move(dir('~/Downloads/*/*.mkv'), '/Volumes/Voloom/movies')
-  end
+#### Move .AVI and .MP4 files from Downloads to my_movies
+#  rule 'Movie files in Downloads' do
+#    move(dir('~/Downloads/*.avi'), '/Volumes/Voloom/movies')
+#    move(dir('~/Downloads/*/*.avi'), '/Volumes/Voloom/movies')
+#    move(dir('~/Downloads/*.mp4'), '/Volumes/Voloom/movies')
+#    move(dir('~/Downloads/*/*.mp4'), '/Volumes/Voloom/movies')
+#    move(dir('~/Downloads/*.mkv'), '/Volumes/Voloom/movies')
+#    move(dir('~/Downloads/*/*.mkv'), '/Volumes/Voloom/movies')
+#  end
 
 ### Move screenshots to trash
   rule 'Screenshots in File' do

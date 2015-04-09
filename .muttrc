@@ -40,7 +40,7 @@ set record="/Users/larry/.mail/larry/Archive"
 set folder = ~/.mail                 # mailbox location
 set header_cache = ~/.mutt/cache # where to store headers
 unset header_cache_compress
-set message_cachedir = ~/.mutt/cache  # where to store bodies
+set read_inc = 500 # Speed up mailbox listing http://www.mutt.org/doc/devel/manual.html#tuning
 set mailcap_path = ~/.mutt/mailcap         # entries for filetypes
 set tmpdir = ~/.mutt/temp            # where to keep temp files
 set signature = ~/.mutt/sig             # my signature file
