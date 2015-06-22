@@ -6,7 +6,7 @@ set encoding=utf-8
 
 " Remap leader from / to ,
 " =============================================================================
-let mapleader = ","
+let mapleader=","
 
 " Remap ; to :
 " =============================================================================
@@ -23,24 +23,25 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'davidoc/taskpaper.vim'
 Plug 'dogrover/vim-pentadactyl'
-Plug 'godlygeek/tabular'
 Plug 'gregsexton/MatchTag'
 Plug 'junegunn/goyo.vim'
 Plug 'ledger/vim-ledger'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'mattn/calendar-vim'
-Plug 'mattn/emmet-vim'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
-Plug 'plasticboy/vim-markdown'
+Plug 'nelstrom/vim-markdown-folding'
 Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite.vim'
+Plug 'Svermeulen/vim-easyclip'
 Plug 'sjl/gundo.vim'
-Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/TwitVim'
+Plug 'vim-voom/VOom'
 Plug 'vimwiki/vimwiki'
 
 call plug#end()
@@ -71,6 +72,13 @@ set nolist
 set showcmd
 set visualbell t_vb=
 set scrolloff=4 " From https://github.com/skwp/dotfiles/blob/master/vimrc
+set nojoinspaces
+set nostartofline
+set directory=~/.vim/swap
+set shell=zsh
+let g:is_zsh=1
+
+" Settings for vim-easyclip
 
 " Indentation settings
 " =============================================================================
@@ -118,7 +126,7 @@ hi User3 ctermbg=yellow ctermfg=black   guibg=#657b83 guifg=black
 
 set statusline+=%3*  "set colour User3
 set statusline+=[%n]\  "buffer number
-set statusline+=%F\  "show path and filename
+set statusline+=%-.70F\  "show path and filename max 70 chars
 set statusline+=%1*  "set colour User1
 set statusline+=\ %{fugitive#statusline()} "show current branch
 set statusline+=%h  "help file flag
@@ -200,14 +208,15 @@ map <leader>pp :setlocal paste!<cr>
 " Always exit paste mode when leaving insert mode
 au InsertLeave * set nopaste
 
-" Leader ss to toggle spell checking and set the style for errors
-map <leader>ss :setlocal spell!<cr>
+" Leader leader s to toggle spell checking and set the style for errors
+map <leader><leader>s :setlocal spell!<cr>
 set spelllang=en_gb
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 
 " Allow buffer switching without saving
 set hidden
+set autoread
 
 " Enable wildmenu for auto completion
 " =============================================================================
@@ -237,11 +246,11 @@ set undoreload=10000
 " mostly based on
 " http://www.codeography.com/2013/06/17/replacing-all-the-things-with-unite-vim.html
 " =============================================================================
-let g:unite_source_history_yank_enable = 1
+" let g:unite_source_history_yank_enable = 1
 nnoremap <leader>f :<C-u>Unite -buffer-name=files file<cr>
 nnoremap <leader>b :<C-u>Unite -buffer-name=buffer buffer<cr>
-nnoremap <leader>r :<C-u>Unite -buffer-name=mru file_mru<cr>
-nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
+nnoremap <leader>m :<C-u>Unite -buffer-name=mru file_mru<cr>
+" nnoremap <leader>y :<C-u>Unite -buffer-name=yank history/yank<cr>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -257,7 +266,7 @@ let g:user_emmet_expandabbr_key='<C-e>'
 "Convert markdown to HTML using Pandoc
 " http://johnmacfarlane.net/pandoc/index.html
 " =============================================================================
-nnoremap <leader>md :%!pandoc -f markdown -t html5 <cr>
+nnoremap <leader>pd :%!pandoc -f markdown -t html5 <cr>
 
 " Escape/unescape & < > HTML entities in range (default current line)
 " =============================================================================
@@ -299,6 +308,8 @@ autocmd BufRead *.docx %!docx2txt.pl
 " Set no backups in /tmp files
 " =============================================================================
 set backupskip=/tmp/*,/private/tmp/*
+set nobackup
+set nowritebackup
 
 " Clear Registers, using :ClearRegisters
 " =============================================================================
@@ -345,20 +356,23 @@ nnoremap <buffer> <silent> <Leader>tQ
 
 "Steve Losh split window stuff
 " =============================================================================
-nnoremap <leader>d <C-w>v<C-w>l
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>j
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+set splitbelow
+set splitright
+
 " Steve Losh 'save on losing focus'
 " =============================================================================
-au FocusLost * :wa
+au FocusLost * silent! wa
 
 " VimWiki options
 " https://github.com/vimwiki/vimwiki
 " =============================================================================
-let g:vimwiki_list = [{'path': '~/vimwiki/'}]
 let g:vimwiki_list = [{'path': '~/vimwiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
 
@@ -378,17 +392,17 @@ function! Formd(option)
     :call winrestview(save_view)
 endfunction
 
-" formd mappings
-nmap <leader>fr :call Formd("-r")<CR>
-nmap <leader>fi :call Formd("-i")<CR>
-nmap <leader>ff :call Formd("-f")<CR>
+" " formd mappings
+" nmap <leader><leader>fr :call Formd("-r")<CR>
+" nmap <leader><leader>fi :call Formd("-i")<CR>
+" nmap <leader><leader>ff :call Formd("-f")<CR>
 
-" set undo points so undo from insert mode undos in sentences, not whole paragraphs
-" =============================================================================
-inoremap . .<C-g>u
-inoremap ! !<C-g>u
-inoremap ? ?<C-g>u
-inoremap : :<C-g>u
+" " set undo points so undo from insert mode undos in sentences, not whole paragraphs
+" " =============================================================================
+" inoremap . .<C-g>u
+" inoremap ! !<C-g>u
+" inoremap ? ?<C-g>u
+" inoremap : :<C-g>u
 
 " hold selection after in- or out-denting with > and < in visual mode
 " =============================================================================
@@ -429,6 +443,8 @@ nnoremap <leader>g :GundoToggle<cr>
 
 " Call urlview on a file and list urls for launching in browser
 " http://linuxcommand.org/man_pages/urlview1.html
+" Currently using urlpager from muttils
+" https://bitbucket.org/blacktrash/muttils
 " =============================================================================
 nnoremap <leader>u :!urlpager -t "%"<cr>
 
@@ -503,14 +519,6 @@ let g:EasyMotion_smartcase = 1
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
-" Settings for jekyll.vim
-" https://github.com/csexton/jekyll.vim
-" =============================================================================
-let g:jekyll_path = "~/hyde"
-map <Leader>jb  :JekyllBuild<CR>
-map <Leader>jn  :JekyllPost<CR>
-map <Leader>jl  :JekyllList<CR>
-
 " Sum selected numbers
 " https://github.com/kana/config/blob/master/vim/personal/dot.vimrc
 " =============================================================================
@@ -529,16 +537,42 @@ function! s:cmd_Sum(banged_p, ...) range
                 \ "'"
 endfunction
 
-" Settings for vim-markdown
-" https://github.com/plasticboy/vim-markdown
-" =============================================================================
-let g:vim_markdown_frontmatter=1
-let g:vim_markdown_folding_disabled=1
-
 " Run python code with <leader>r
 " =============================================================================
 nnoremap <leader>r :exec '!python' shellescape(@%, 1)<cr>
+au FileType python set sts=4 ts=4 sw=4 tw=79
 
 " Make .nfo files slightly easier to read
 " =============================================================================
 au BufNewFile,BufRead *.nfo set filetype=xml
+
+" Settings for vim-commentary
+" https://github.com/tpope/vim-commentary
+" =============================================================================
+autocmd FileType slrnrc set commentstring=%\ %s
+autocmd FileType slang set commentstring=%\ %s
+
+" Multipurpose Tab Key
+" Indent if at the beginning of a line, else do completion
+" From https://github.com/gregstallings/vimfiles/blob/master/vimrc
+" =============================================================================
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
+" https://github.com/svermeulen/vim-easyclip
+" =============================================================================
+nnoremap gm m
+let g:EasyClipUseSubstituteDefaults=1
+imap <c-v> <plug>EasyClipInsertModePaste
+cmap <c-v> <plug>EasyClipInsertModePaste
+let g:EasyClipAutoFormat=1
+let g:EasyClipShareYanks=1
+nnoremap <leader>y :Yanks<cr>
